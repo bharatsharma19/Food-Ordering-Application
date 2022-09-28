@@ -12,6 +12,48 @@ router.get("/add", function (req, res) {
   res.render("addItem", { msg: "" });
 });
 
+router.get("/fetch_all_types", function (req, res) {
+  db.query("select * from type", function (error, result) {
+    if (error) {
+      {
+        res.status(500).json([]);
+      }
+    } else {
+      res.status(200).json({
+        category: result,
+      });
+    }
+  });
+});
+
+router.get("/fetch_all_categories", function (req, res) {
+  db.query("select * from foodcategory", function (error, result) {
+    if (error) {
+      {
+        res.status(500).json([]);
+      }
+    } else {
+      res.status(200).json({
+        category: result,
+      });
+    }
+  });
+});
+
+router.get("/fetch_all_subCategories", function (req, res) {
+  db.query("select * from foodcategory", function (error, result) {
+    if (error) {
+      {
+        res.status(500).json([]);
+      }
+    } else {
+      res.status(200).json({
+        category: result,
+      });
+    }
+  });
+});
+
 router.post("/addItem", upload.any(), function (req, res) {
   db.query(
     "insert into fooditems(name, type, category, subcategory, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
@@ -36,6 +78,10 @@ router.post("/addItem", upload.any(), function (req, res) {
       }
     }
   );
+});
+
+router.get("/display", function (req, res) {
+  res.render("display");
 });
 
 module.exports = router;
