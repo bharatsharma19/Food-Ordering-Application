@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var db = require("./db");
-var multer = require("multer");
+var upload = require("./multer");
 
 /* GET home page. */
 router.get("/dashboard", function (req, res, next) {
@@ -9,9 +9,33 @@ router.get("/dashboard", function (req, res, next) {
 });
 
 router.get("/add", function (req, res) {
-  res.render("addItem");
+  res.render("addItem", { msg: "" });
 });
 
-router.post("/addItem", function (req, res) {});
+router.post("/addItem", upload.any(), function (req, res) {
+  db.query(
+    "insert into fooditems(name, type, category, subcategory, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      req.body.name,
+      req.body.type,
+      req.body.category,
+      req.body.subcategory,
+      req.body.price,
+      req.body.offerprice,
+      req.body.rating,
+      req.files[0].filename,
+    ],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.render("addItem", { msg: "Server Error" });
+      } else {
+        console.log("Result : ", result);
+        res.render("addItem", { msg: "" });
+        alert("Item Added Successfully");
+      }
+    }
+  );
+});
 
 module.exports = router;

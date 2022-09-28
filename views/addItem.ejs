@@ -68,9 +68,145 @@
       </div>
     </nav>
 
-    <form action="/admin/addItem" method="post">
-      
-    </form>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <div
+        class="row"
+        style="
+          width: 54%;
+          height: auto;
+          background: #fff;
+          border: 2px solid burlywood;
+          border-radius: 16px;
+          margin-top: 32px;
+        "
+      >
+        <h2 class="text-center m-3">Add Food Item</h2>
+        <form
+          action="/admin/addItem"
+          method="post"
+          enctype="multipart/form-data"
+          class="col s12"
+        >
+          <div class="row">
+            <div class="input-field col s6">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input
+                  type="name"
+                  name="name"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Type</label>
+                <input
+                  type="name"
+                  name="type"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Category</label
+                >
+                <input
+                  type="name"
+                  name="category"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+            <div class="input-field col s6">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Sub-Category</label
+                >
+                <input
+                  type="name"
+                  name="subcategory"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Price</label>
+                <input
+                  type="name"
+                  name="price"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+            <div class="input-field col s4">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Offer Price</label
+                >
+                <input
+                  type="name"
+                  name="offerprice"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+            <div class="input-field col s4">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Ratings</label
+                >
+                <input
+                  type="name"
+                  name="rating"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <div class="mb-3">
+                <label for="formFile" class="form-label"
+                  >Choose Image of Food Item</label
+                >
+                <input
+                  class="form-control"
+                  name="picture"
+                  type="file"
+                  id="formFile"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="text-center m-2">
+            <button type="submit" class="btn btn-primary">Add Item</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
