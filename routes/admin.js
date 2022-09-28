@@ -6,4 +6,8 @@ router.get('/dashboard', function(req, res, next) {
     res.render("dashboard")
 });
 
+router.post("/add",function(req,res){
+    
+})
+
 module.exports = router;
