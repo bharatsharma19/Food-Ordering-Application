@@ -50,8 +50,14 @@
                 Others
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/admin/addCat">Add Category</a></li>
-                <li><a class="dropdown-item" href="/admin/addSubCat">Add Sub-Category</a></li>
+                <li>
+                  <a class="dropdown-item" href="/admin/addCat">Add Category</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/addSubCat"
+                    >Add Sub-Category</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -64,40 +70,49 @@
       </div>
     </nav>
 
-    <h2 class="text-center">Available Food Items</h2>
+    <h2 class="text-center" style="text-decoration: underline">
+      Available Food Items
+    </h2>
 
     <% if(status==false) {%>
-    <h3 style="display: flex; justify-content: center; align-items: center">
+    <h3
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 12px;
+      "
+    >
       <%= data %>
     </h3>
     <%} else { %>
-    <table class="table table-success table-striped">
+    <table class="table table-light table-striped" style="margin-top: 12px">
       <thead>
         <tr>
-          <th>Item Id</th>
-          <th>Food Name</th>
-          <th>Category - SubCategory - Type</th>
-          <th>Price - Offer Price</th>
-          <th>Ratings</th>
-          <th>Picture</th>
-          <th>Action</th>
+          <th class="text-center">Item Id</th>
+          <th class="text-center">Food Name</th>
+          <th class="text-center">Category - SubCategory - Type</th>
+          <th class="text-center">Price - Offer Price</th>
+          <th class="text-center">Ratings</th>
+          <th class="text-center">Picture</th>
+          <th class="text-center">Action</th>
         </tr>
       </thead>
       <% data.map((item)=>{%>
       <tbody>
         <tr>
-          <td><%= item.id %></td>
-          <td><%= item.name %></td>
-          <td>
+          <td class="text-center" class="text-center"><%= item.id %></td>
+          <td class="text-center"><%= item.name %></td>
+          <td class="text-center">
             <%= item.categoryname %> - <%= item.subcategoryname %> -
             <%=item.typename %>
           </td>
-          <td>
+          <td class="text-center">
             <s style="color: red"> &#8377; <%=item.price%>/-</s>
             <b style="color: blue"> &#8377;<%= item.offerprice %>/- </b>
           </td>
-          <td><%= item.rating %></td>
-          <td>
+          <td class="text-center"><%= item.rating %></td>
+          <td class="text-center">
             <button
               type="button"
               class="btnPicture"
@@ -111,7 +126,7 @@
               />
             </button>
           </td>
-          <td>
+          <td class="text-center">
             <input
               class="ves-effect waves-light btn-small btnEdit"
               type="button"
