@@ -20,27 +20,13 @@ router.get("/fetch_all_types", function (req, res) {
       }
     } else {
       res.status(200).json({
-        category: result,
+        types: result,
       });
     }
   });
 });
 
 router.get("/fetch_all_categories", function (req, res) {
-  db.query("select * from foodcategory", function (error, result) {
-    if (error) {
-      {
-        res.status(500).json([]);
-      }
-    } else {
-      res.status(200).json({
-        category: result,
-      });
-    }
-  });
-});
-
-router.get("/fetch_all_subCategories", function (req, res) {
   db.query("select * from foodcategory", function (error, result) {
     if (error) {
       {
