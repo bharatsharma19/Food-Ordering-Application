@@ -11,25 +11,27 @@ $(document).ready(function () {
   $.getJSON(`${url}/fetch_all_categories`, function (data) {
     //alert(JSON.stringify(data));
     data.category.map((item) => {
-      $("#foodcategory").append(
-        $("<option>").text(item.category).val(item.category)
+      $("#foodcategoryid").append(
+        $("<option>").text(item.foodcategoryname).val(item.foodcategoryid)
       );
     });
   });
 
-  $("#foodcategory").change(function () {
+  $("#foodcategoryid").change(function () {
     $.getJSON(
-      `${url}/fetch_all_categories`,
-      { foodcategory: $("#foodcategory").val() },
+      `${url}/fetch_all_subcategories`,
+      { foodcategoryid: $("#foodcategoryid").val() },
       function (data) {
-        $("#foodsubcategory").empty();
-        $("#foodsubcategory").append(
+        $("#foodsubcategoryid").empty();
+        $("#foodsubcategoryid").append(
           $("<option>").text("--Choose SubCategory--")
         );
 
-        data.category.map((item) => {
-          $("#foodsubcategory").append(
-            $("<option>").text(item.subcategory).val(item.subcategory)
+        data.subcategory.map((item) => {
+          $("#foodsubcategoryid").append(
+            $("<option>")
+              .text(item.foodsubcategoryname)
+              .val(item.foodsubcategoryid)
           );
         });
       }

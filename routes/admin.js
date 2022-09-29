@@ -40,14 +40,32 @@ router.get("/fetch_all_categories", function (req, res) {
   });
 });
 
+router.get("/fetch_all_subcategories", function (req, res) {
+  db.query(
+    "select * from foodsubcategory where foodcategoryid=?",
+    [req.query.foodcategoryid],
+    function (error, result) {
+      if (error) {
+        {
+          res.status(500).json([]);
+        }
+      } else {
+        res.status(200).json({
+          subcategory: result,
+        });
+      }
+    }
+  );
+});
+
 router.post("/addItem", upload.any(), function (req, res) {
   db.query(
-    "insert into fooditems(name, type, category, subcategory, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into fooditems(name, foodcategoryname, foodsubcategoryname, type, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
     [
       req.body.name,
-      req.body.type,
-      req.body.category,
-      req.body.subcategory,
+      req.body.foodcategoryid,
+      req.body.foodsubcategoryid,
+      req.body.foodid,
       req.body.price,
       req.body.offerprice,
       req.body.rating,
@@ -60,7 +78,6 @@ router.post("/addItem", upload.any(), function (req, res) {
       } else {
         console.log("Result : ", result);
         res.render("addItem", { msg: "" });
-        alert("Item Added Successfully");
       }
     }
   );
