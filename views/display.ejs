@@ -68,9 +68,67 @@
       </div>
     </nav>
 
+    <h2 class="text-center">Available Food Items</h2>
+
+    <% if(status==false) {%>
+    <h3 style="display: flex; justify-content: center; align-items: center">
+      <%= data %>
+    </h3>
+    <%} else { %>
     <table class="table table-success table-striped">
-      
+      <thead>
+        <tr>
+          <th>Item Id</th>
+          <th>Food Name</th>
+          <th>Category - SubCategory - Type</th>
+          <th>Price - Offer Price</th>
+          <th>Ratings</th>
+          <th>Picture</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <% data.map((item)=>{%>
+      <tbody>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td>
+            <%= item.foodcategoryid %> - <%= item.foodsubcategoryid %> -
+            <%=item.type %>
+          </td>
+          <td>
+            <s style="color: red"> &#8377; <%=item.price%>/-</s>
+            <b style="color: blue"> &#8377;<%= item.offerprice %>/- </b>
+          </td>
+          <td><%= item.rating %></td>
+          <td>
+            <button
+              type="button"
+              class="btnPicture"
+              products="<%=JSON.stringify(item)%>"
+              style="cursor: pointer"
+            >
+              <img
+                src="/images/<%= item.picture %>"
+                alt="Picture"
+                style="border-radius: 128px; width: 64px"
+              />
+            </button>
+          </td>
+          <td>
+            <input
+              class="ves-effect waves-light btn-small btnEdit"
+              type="button"
+              value="Edit"
+              id="btnEdit"
+              products="<%=JSON.stringify(item)%>"
+            />
+          </td>
+        </tr>
+      </tbody>
+      <%})%>
     </table>
+    <% } %>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"

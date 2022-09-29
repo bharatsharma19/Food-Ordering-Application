@@ -84,7 +84,31 @@ router.post("/addItem", upload.any(), function (req, res) {
 });
 
 router.get("/display", function (req, res) {
-  res.render("display");
+  db.query(
+    "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodid from type B where B.foodid=P.type) as foodname from fooditems P",
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.render("display", {
+          status: false,
+          data: "Server Error...",
+        });
+      } else {
+        console.log("Result : ", result);
+        if (result.length == 0) {
+          res.render("display", {
+            status: false,
+            data: "No Records Found !",
+          });
+        } else {
+          res.render("display", {
+            status: true,
+            data: result,
+          });
+        }
+      }
+    }
+  );
 });
 
 module.exports = router;
