@@ -60,7 +60,7 @@ router.get("/fetch_all_subcategories", function (req, res) {
 
 router.post("/addItem", upload.any(), function (req, res) {
   db.query(
-    "insert into fooditems(name, foodcategoryname, foodsubcategoryname, type, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into fooditems(name, foodcategoryid, foodsubcategoryid, type, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
     [
       req.body.name,
       req.body.foodcategoryid,
@@ -85,7 +85,7 @@ router.post("/addItem", upload.any(), function (req, res) {
 
 router.get("/display", function (req, res) {
   db.query(
-    "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodid from type B where B.foodid=P.type) as foodname from fooditems P",
+    "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodtype from type B where B.foodid=P.type) as typename from fooditems P",
     function (error, result) {
       if (error) {
         console.log("Error : ", error);
