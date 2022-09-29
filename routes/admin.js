@@ -111,4 +111,44 @@ router.get("/display", function (req, res) {
   );
 });
 
+router.get("/addCat", function (req, res) {
+  res.render("addCategory");
+});
+
+router.post("/addCategory", function (req, res) {
+  db.query(
+    "insert into foodcategory(foodcategoryname) values(?)",
+    [req.body.foodcategoryname],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.render("addCategory");
+      } else {
+        console.log("Result : ", result);
+        res.render("addCategory");
+      }
+    }
+  );
+});
+
+router.get("/addSubCat", function (req, res) {
+  res.render("addSubCategory");
+});
+
+router.post("/addSubCategory", function (req, res) {
+  db.query(
+    "insert into foodsubcategory(foodcategoryid, foodsubcategoryname) values(?, ?)",
+    [req.body.foodcategoryid, req.body.foodsubcategoryname],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.render("addSubCategory");
+      } else {
+        console.log("Result : ", result);
+        res.render("addSubCategory");
+      }
+    }
+  );
+});
+
 module.exports = router;
