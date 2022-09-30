@@ -73,10 +73,8 @@ router.post("/addItem", upload.any(), function (req, res) {
     ],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.render("addItem", { msg: "Server Error" });
       } else {
-        console.log("Result : ", result);
         res.render("addItem", { msg: "" });
       }
     }
@@ -88,13 +86,11 @@ router.get("/display", function (req, res) {
     "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodtype from type B where B.foodid=P.type) as typename from fooditems P",
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.render("display", {
           status: false,
           data: "Server Error...",
         });
       } else {
-        console.log("Result : ", result);
         if (result.length == 0) {
           res.render("display", {
             status: false,
@@ -127,10 +123,8 @@ router.post("/addCategory", function (req, res) {
     [req.body.foodcategoryname],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.render("addCategory");
       } else {
-        console.log("Result : ", result);
         res.render("addCategory");
       }
     }
@@ -151,10 +145,8 @@ router.post("/addSubCategory", function (req, res) {
     [req.body.foodcategoryid, req.body.foodsubcategoryname],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.render("addSubCategory");
       } else {
-        console.log("Result : ", result);
         res.render("addSubCategory");
       }
     }
@@ -175,13 +167,11 @@ router.get("/editProduct", function (req, res) {
     ],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.status(500).json({
           status: false,
           message: "Server Error...",
         });
       } else {
-        console.log("Result : ", result);
         res.status(200).json({
           status: true,
           message: "Record Successfully Modified!",
@@ -197,13 +187,11 @@ router.get("/deleteItem", function (req, res) {
     [req.query.id],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.status(500).json({
           status: false,
           message: "Server Error...",
         });
       } else {
-        console.log("Result : ", result);
         res.status(200).json({
           status: true,
           message: "Record Successfully Deleted!",
@@ -219,10 +207,8 @@ router.post("/updatePicture", upload.any(), function (req, res) {
     [req.files[0].filename, req.body.id],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.status(500).json({ status: false, message: "Server Error" });
       } else {
-        console.log("Result : ", result);
         res
           .status(200)
           .json({ status: true, message: "Picture Updated Successfully" });
@@ -237,10 +223,8 @@ router.get("/deleteCategory", function (req, res) {
     [req.query.foodcategoryid, req.query.foodcategoryid, req.query.id],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.redirect("/admin/deleteCat");
       } else {
-        console.log("Result : ", result);
         res.redirect("/admin/deleteCat");
       }
     }
@@ -253,10 +237,8 @@ router.get("/deleteSubCategory", function (req, res) {
     [req.query.foodsubcategoryid, req.query.foodcategoryid],
     function (error, result) {
       if (error) {
-        console.log("Error : ", error);
         res.redirect("/admin/deleteSubCat");
       } else {
-        console.log("Result : ", result);
         res.redirect("/admin/deleteSubCat");
       }
     }
