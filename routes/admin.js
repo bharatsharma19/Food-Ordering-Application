@@ -219,8 +219,12 @@ router.post("/updatePicture", upload.any(), function (req, res) {
 
 router.get("/deleteCategory", function (req, res) {
   db.query(
-    "delete from foodcategory where foodcategoryid = ?; delete from foodsubcategory where foodcategoryid = ?;delete from fooditems where id=?",
-    [req.query.foodcategoryid, req.query.foodcategoryid, req.query.id],
+    "delete from foodcategory where foodcategoryid = ?; delete from foodsubcategory where foodcategoryid = ?;delete from fooditems where foodcategoryid = ?",
+    [
+      req.query.foodcategoryid,
+      req.query.foodcategoryid,
+      req.query.foodcategoryid,
+    ],
     function (error, result) {
       if (error) {
         res.redirect("/admin/deleteCat");
@@ -233,8 +237,13 @@ router.get("/deleteCategory", function (req, res) {
 
 router.get("/deleteSubCategory", function (req, res) {
   db.query(
-    "delete from foodsubcategory where foodsubcategoryid = ? and foodcategoryid = ?",
-    [req.query.foodsubcategoryid, req.query.foodcategoryid],
+    "delete from foodsubcategory where foodsubcategoryid = ? and foodcategoryid = ?;delete from fooditems where foodsubcategoryid = ? and foodcategoryid = ?",
+    [
+      req.query.foodsubcategoryid,
+      req.query.foodcategoryid,
+      req.query.foodsubcategoryid,
+      req.query.foodcategoryid,
+    ],
     function (error, result) {
       if (error) {
         res.redirect("/admin/deleteSubCat");
