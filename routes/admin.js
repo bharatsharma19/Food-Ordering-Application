@@ -98,11 +98,13 @@ router.get("/display", function (req, res) {
         if (result.length == 0) {
           res.render("display", {
             status: false,
+            index: 0,
             data: "No Records Found !",
           });
         } else {
           res.render("display", {
             status: true,
+            index: 0,
             data: result,
           });
         }
