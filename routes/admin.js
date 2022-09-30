@@ -10,10 +10,8 @@ router.get("/dashboard", function (req, res) {
 
   db.query(query, function (error, result) {
     if (error) {
-      console.log("Error : ", error);
       res.render("dashboard", { status: false, result: [] });
     } else {
-      console.log("Result : ", result);
       res.render("dashboard", {
         status: true,
         result: result,
