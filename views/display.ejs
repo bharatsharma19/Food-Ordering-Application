@@ -119,7 +119,7 @@
             <button
               type="button"
               class="btnPicture"
-              products="<%=JSON.stringify(item)%>"
+              fooditems="<%=JSON.stringify(item)%>"
               style="cursor: pointer"
             >
               <img
@@ -135,7 +135,7 @@
               type="button"
               value="Edit"
               id="btnEdit"
-              products="<%=JSON.stringify(item)%>"
+              fooditems="<%=JSON.stringify(item)%>"
             />
           </td>
         </tr>
@@ -144,7 +144,7 @@
     </table>
     <% } %>
 
-    <!-- Modal -->
+    <!-- Item Modal -->
     <div
       class="modal fade"
       id="exampleModal"
@@ -272,6 +272,78 @@
       </div>
     </div>
 
+    <!-- Picture Modal -->
+    <div
+      class="modal fade"
+      id="pictureModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="name">Edit Picture</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="id" id="id" />
+            <div class="editPicture">
+              <img
+                id="pPicture"
+                style="
+                  display: block;
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 50%;
+                  width: 264px;
+                  height: 216px;
+                  border-radius: 128px;
+                "
+              />
+            </div>
+            <div class="mb-3" style="margin-top: 8px">
+              <label for="formFile" class="form-label"
+                >Choose New Image of Food Item</label
+              >
+              <input
+                class="form-control"
+                name="picture"
+                type="file"
+                id="picture"
+              />
+              <div class="text-center m-2">
+                <button
+                  type="submit"
+                  id="updatePicture"
+                  class="btn btn-primary"
+                >
+                  Update Picture
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary close"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
@@ -282,7 +354,7 @@
         $(".btnEdit").click(function () {
           $("#exampleModal").modal("show");
 
-          const item = JSON.parse($(this).attr("products"));
+          const item = JSON.parse($(this).attr("fooditems"));
           //alert(item);
 
           $("#id").val(item.id);
@@ -311,6 +383,7 @@
                 price: $("#price").val(),
                 offerprice: $("#offerprice").val(),
                 rating: $("#rating").val(),
+                id: $("#id").val(),
               },
               function (data) {
                 alert(data.message);
@@ -333,8 +406,54 @@
           });
         });
 
+        $(".btnPicture").click(function () {
+          $("#pictureModal").modal("show");
+
+          const item = JSON.parse($(this).attr("fooditems"));
+
+          $("#id").val(item.id);
+          $("#name").html(`Edit Product ${item.name}`);
+          $("#pPicture").attr("src", `/images/${item.picture}`);
+
+          $("#updatePicture").click(function () {
+            var formData = new FormData();
+
+            formData.append("id", $("#id").val());
+
+            var files = $("#picture")[0].files;
+
+            if (files.length > 0) {
+              formData.append("picture", files[0]);
+            }
+
+            $.ajax({
+              url: "/admin/updatePicture",
+              type: "post",
+              processData: false,
+              data: formData,
+              contentType: false,
+
+              success: function (response) {
+                if (response != 0) {
+                  if (response.result) {
+                    alert(response.status);
+                    window.location.reload("/admin/display");
+                  } else {
+                    alert(response.status);
+                    window.location.reload("/admin/display");
+                  }
+                } else {
+                  alert(response.status);
+                  window.location.reload("/admin/display");
+                }
+              },
+            });
+          });
+        });
+
         $(".close").click(function () {
           $("#exampleModal").modal("hide");
+          $("#pictureModal").modal("hide");
         });
       });
     </script>

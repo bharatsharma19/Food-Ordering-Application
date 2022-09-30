@@ -153,7 +153,7 @@ router.post("/addSubCategory", function (req, res) {
 
 router.get("/editProduct", function (req, res) {
   db.query(
-    "update fooditems set name=?, foodcategoryid=?, foodsubcategoryid=?, price=?, offerprice=?, rating=?",
+    "update fooditems set name=?, foodcategoryid=?, foodsubcategoryid=?, price=?, offerprice=?, rating=? where id = ?",
     [
       req.query.name,
       req.query.foodcategoryid,
@@ -161,6 +161,7 @@ router.get("/editProduct", function (req, res) {
       req.query.price,
       req.query.offerprice,
       req.query.rating,
+      req.query.id,
     ],
     function (error, result) {
       if (error) {
@@ -197,6 +198,26 @@ router.get("/deleteItem", function (req, res) {
           status: true,
           message: "Record Successfully Deleted!",
         });
+      }
+    }
+  );
+});
+
+router.post("/updatePicture", upload.any(), function (req, res) {
+  console.log(req.body);
+
+  db.query(
+    "update fooditems set picture = ? where id = ?",
+    [req.files[0].filename, req.body.id],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.status(500).json({ status: false, message: "Server Error" });
+      } else {
+        console.log("Result : ", result);
+        res
+          .status(200)
+          .json({ status: true, message: "Picture Updated Successfully" });
       }
     }
   );
