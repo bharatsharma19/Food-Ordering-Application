@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Add Sub-Category - Foodie</title>
+    <title>Delete Category - Foodie</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -97,7 +97,7 @@
         "
       >
         <h2 class="text-center m-3">Delete Category</h2>
-        <form action="/admin/deleteCategory" method="post" class="col s12">
+        <form action="/admin/deleteCategory" method="get" class="col s12">
           <div class="row mt-3 mb-4 d-flex justify-content-between">
             <div class="input-field col s12">
               <select
@@ -111,7 +111,7 @@
             </div>
           </div>
           <div class="text-center m-2">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" id="deleteCategory" class="btn btn-primary">
               Delete Category
             </button>
           </div>
@@ -124,5 +124,23 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
+    <script>
+      /*
+      $(document).ready(function () {
+        $("#delBtn").click(function () {
+          $.getJSON(
+            "/admin/deleteCategory",
+            {
+              foodcategoryid: $("#foodcategoryid").val(),
+            },
+            function (data) {
+              alert(data.message);
+              window.location.reload("/admin/deleteCat");
+            }
+          );
+        });
+      });
+      */
+    </script>
   </body>
 </html>

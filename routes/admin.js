@@ -214,8 +214,6 @@ router.get("/deleteItem", function (req, res) {
 });
 
 router.post("/updatePicture", upload.any(), function (req, res) {
-  console.log(req.body);
-
   db.query(
     "update fooditems set picture = ? where id = ?",
     [req.files[0].filename, req.body.id],
@@ -228,6 +226,38 @@ router.post("/updatePicture", upload.any(), function (req, res) {
         res
           .status(200)
           .json({ status: true, message: "Picture Updated Successfully" });
+      }
+    }
+  );
+});
+
+router.get("/deleteCategory", function (req, res) {
+  db.query(
+    "delete from foodcategory where foodcategoryid = ?; delete from foodsubcategory where foodcategoryid = ?",
+    [req.query.foodcategoryid, req.query.foodcategoryid],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.redirect("/admin/deleteCat");
+      } else {
+        console.log("Result : ", result);
+        res.redirect("/admin/deleteCat");
+      }
+    }
+  );
+});
+
+router.get("/deleteSubCategory", function (req, res) {
+  db.query(
+    "delete from foodsubcategory where foodsubcategoryid = ? and foodcategoryid = ?",
+    [req.query.foodsubcategoryid, req.query.foodcategoryid],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.redirect("/admin/deleteSubCat");
+      } else {
+        console.log("Result : ", result);
+        res.redirect("/admin/deleteSubCat");
       }
     }
   );
