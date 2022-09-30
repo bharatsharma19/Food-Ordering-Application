@@ -117,6 +117,10 @@ router.get("/addCat", function (req, res) {
   res.render("addCategory");
 });
 
+router.get("/deleteCat", function (req, res) {
+  res.render("deleteCategory");
+});
+
 router.post("/addCategory", function (req, res) {
   db.query(
     "insert into foodcategory(foodcategoryname) values(?)",
@@ -135,6 +139,10 @@ router.post("/addCategory", function (req, res) {
 
 router.get("/addSubCat", function (req, res) {
   res.render("addSubCategory");
+});
+
+router.get("/deleteSubCat", function (req, res) {
+  res.render("deleteSubCategory");
 });
 
 router.post("/addSubCategory", function (req, res) {

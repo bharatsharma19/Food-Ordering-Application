@@ -61,6 +61,17 @@
                     >Add Sub-Category</a
                   >
                 </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/admin/deleteCat"
+                    >Delete Category</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/deleteSubCat"
+                    >Delete Sub-Category</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -89,9 +100,13 @@
       <%= data %>
     </h3>
     <%} else { %>
-    <table class="table table-light table-striped" style="margin-top: 12px">
+    <table
+      class="table table-bordered border-primary table-light"
+      style="margin-top: 12px"
+    >
       <thead>
         <tr>
+          <th class="text-center">S. No.</th>
           <th class="text-center">Item Id</th>
           <th class="text-center">Food Name</th>
           <th class="text-center">Category - SubCategory - Type</th>
@@ -104,7 +119,8 @@
       <% data.map((item, index)=>{%>
       <tbody>
         <tr>
-          <td class="text-center" class="text-center"><%= index+1 %></td>
+          <td class="text-center"><%= index+1 %></td>
+          <td class="text-center"><%= item.id %></td>
           <td class="text-center"><%= item.name %></td>
           <td class="text-center">
             <%= item.categoryname %> - <%= item.subcategoryname %> -
