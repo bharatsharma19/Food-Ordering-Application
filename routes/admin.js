@@ -233,8 +233,8 @@ router.post("/updatePicture", upload.any(), function (req, res) {
 
 router.get("/deleteCategory", function (req, res) {
   db.query(
-    "delete from foodcategory where foodcategoryid = ?; delete from foodsubcategory where foodcategoryid = ?",
-    [req.query.foodcategoryid, req.query.foodcategoryid],
+    "delete from foodcategory where foodcategoryid = ?; delete from foodsubcategory where foodcategoryid = ?;delete from fooditems where id=?",
+    [req.query.foodcategoryid, req.query.foodcategoryid, req.query.id],
     function (error, result) {
       if (error) {
         console.log("Error : ", error);

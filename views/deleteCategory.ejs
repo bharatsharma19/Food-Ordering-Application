@@ -108,6 +108,7 @@
               >
                 <option selected>--Choose Category--</option>
               </select>
+              <input type="hidden" id="foodid" name="foodid" />
             </div>
           </div>
           <div class="text-center m-2">
@@ -124,23 +125,5 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
-    <script>
-      /*
-      $(document).ready(function () {
-        $("#delBtn").click(function () {
-          $.getJSON(
-            "/admin/deleteCategory",
-            {
-              foodcategoryid: $("#foodcategoryid").val(),
-            },
-            function (data) {
-              alert(data.message);
-              window.location.reload("/admin/deleteCat");
-            }
-          );
-        });
-      });
-      */
-    </script>
   </body>
 </html>
