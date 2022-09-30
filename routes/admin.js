@@ -151,4 +151,55 @@ router.post("/addSubCategory", function (req, res) {
   );
 });
 
+router.get("/editProduct", function (req, res) {
+  db.query(
+    "update fooditems set name=?, foodcategoryid=?, foodsubcategoryid=?, price=?, offerprice=?, rating=?",
+    [
+      req.query.name,
+      req.query.foodcategoryid,
+      req.query.foodsubcategoryid,
+      req.query.price,
+      req.query.offerprice,
+      req.query.rating,
+    ],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.status(500).json({
+          status: false,
+          message: "Server Error...",
+        });
+      } else {
+        console.log("Result : ", result);
+        res.status(200).json({
+          status: true,
+          message: "Record Successfully Modified!",
+        });
+      }
+    }
+  );
+});
+
+router.get("/deleteItem", function (req, res) {
+  db.query(
+    "delete from fooditems where id = ?",
+    [req.query.id],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.status(500).json({
+          status: false,
+          message: "Server Error...",
+        });
+      } else {
+        console.log("Result : ", result);
+        res.status(200).json({
+          status: true,
+          message: "Record Successfully Deleted!",
+        });
+      }
+    }
+  );
+});
+
 module.exports = router;
