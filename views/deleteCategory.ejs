@@ -61,6 +61,17 @@
                     >Add Sub-Category</a
                   >
                 </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="/admin/deleteCat"
+                    >Delete Category</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/admin/deleteSubCat"
+                    >Delete Sub-Category</a
+                  >
+                </li>
               </ul>
             </li>
           </ul>
@@ -85,12 +96,13 @@
           margin-top: 32px;
         "
       >
-        <h2 class="text-center m-3">Add Sub-Category</h2>
-        <form action="/admin/addSubCategory" method="post" class="col s12">
+        <h2 class="text-center m-3">Delete Category</h2>
+        <form action="/admin/deleteCategory" method="post" class="col s12">
           <div class="row mt-3 mb-4 d-flex justify-content-between">
             <div class="input-field col s12">
               <select
-                class="custom-select"
+                class="form-select"
+                aria-label="Default select example"
                 id="foodcategoryid"
                 name="foodcategoryid"
               >
@@ -98,25 +110,9 @@
               </select>
             </div>
           </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label"
-                  >Sub-Category</label
-                >
-                <input
-                  type="name"
-                  name="foodsubcategoryname"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                />
-              </div>
-            </div>
-          </div>
           <div class="text-center m-2">
             <button type="submit" class="btn btn-primary">
-              Add Sub-Category
+              Delete Category
             </button>
           </div>
         </form>
