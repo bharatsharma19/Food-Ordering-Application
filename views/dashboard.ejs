@@ -83,6 +83,123 @@
         </div>
       </div>
     </nav>
+
+    <div class="container my-3">
+      <div class="row" id="searchProduct">
+        <div
+          class="card my-3"
+          id="productCard"
+          style="width: 24rem; padding: 8px; margin: auto"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              right: 0;
+            "
+          ></div>
+          <div>
+            <div class="card-body">
+              <h5 class="card-title">Total Available Categories</h5>
+              <h3
+                class="card-text"
+                style="margin-top: 18px; margin-bottom: 24px"
+              >
+                <%= result[0][0].countCategory %>
+              </h3>
+              <a href="/admin/addCat" class="btn btn-primary"
+                >Add More Categories</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="card my-3"
+          id="productCard"
+          style="width: 24rem; padding: 8px; margin: auto"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              right: 0;
+            "
+          ></div>
+          <div>
+            <div class="card-body">
+              <h5 class="card-title">Total Available Sub-Categories</h5>
+              <h3
+                class="card-text"
+                style="margin-top: 18px; margin-bottom: 24px"
+              >
+                <%= result[1][0].countSubCategory %>
+              </h3>
+              <a href="/admin/addSubCat" class="btn btn-primary"
+                >Add More Sub-Categories</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" id="searchProduct">
+        <div
+          class="card my-3"
+          id="productCard"
+          style="width: 24rem; padding: 8px; margin: auto"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              right: 0;
+            "
+          ></div>
+          <div>
+            <div class="card-body">
+              <h5 class="card-title">Total Available Food Items</h5>
+              <h3
+                class="card-text"
+                style="margin-top: 18px; margin-bottom: 24px"
+              >
+                <%= result[2][0].countTotalItems %>
+              </h3>
+              <a href="/admin/add" class="btn btn-primary">Add More Products</a>
+              <a href="/admin/display" class="btn btn-primary">View Products</a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card my-3"
+          id="productCard"
+          style="width: 24rem; padding: 8px; margin: auto"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              right: 0;
+            "
+          ></div>
+          <div>
+            <div class="card-body">
+              <h5 class="card-title">Total Items Sold</h5>
+              <h3
+                style="margin-top: 18px; margin-bottom: 24px"
+                class="card-text"
+              >
+                Sold
+              </h3>
+              <a href="#" class="btn btn-primary">View Statistics</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"

@@ -4,8 +4,22 @@ var db = require("./db");
 var upload = require("./multer");
 
 /* GET home page. */
-router.get("/dashboard", function (req, res, next) {
-  res.render("dashboard");
+router.get("/dashboard", function (req, res) {
+  var query =
+    "select count(*) as countCategory from foodcategory; select count(*) as countSubCategory from foodsubcategory; select count(*) as countTotalItems from fooditems";
+
+  db.query(query, function (error, result) {
+    if (error) {
+      console.log("Error : ", error);
+      res.render("dashboard", { status: false, result: [] });
+    } else {
+      console.log("Result : ", result);
+      res.render("dashboard", {
+        status: true,
+        result: result,
+      });
+    }
+  });
 });
 
 router.get("/add", function (req, res) {
