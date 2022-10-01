@@ -20,7 +20,7 @@ router.get("/signup", function (req, res) {
       res.render("userSignup", { msg: "" });
     }
   } catch (error) {
-    res.redirect("/");
+    res.redirect("/error");
   }
 });
 
@@ -47,7 +47,7 @@ router.post("/signedup", function (req, res) {
       }
     );
   } catch (error) {
-    res.redirect("/");
+    res.redirect("/error");
   }
 });
 
@@ -61,7 +61,7 @@ router.get("/signin", function (req, res) {
       res.render("userSignin", { msg: "" });
     }
   } catch (error) {
-    res.redirect("/");
+    res.redirect("/error");
   }
 });
 
@@ -84,7 +84,7 @@ router.post("/checkuser", function (req, res) {
       }
     );
   } catch (error) {
-    res.redirect("/signin");
+    res.redirect("/error");
   }
 });
 
@@ -93,30 +93,34 @@ router.get("/signout", function (req, res) {
     localstorage.removeItem("usertoken");
     res.redirect("/signin");
   } catch (error) {
-    res.redirect("/");
+    res.redirect("/error");
   }
 });
 
 /* GET home page. */
 router.get("/", function (req, res) {
-  db.query(
-    "select P.*,(select B.type from type B where B.foodid=P.type) as typename from fooditems P",
-    function (error, result) {
-      var user = JSON.parse(localstorage.getItem("usertoken"));
+  try {
+    db.query(
+      "select P.*,(select B.type from type B where B.foodid=P.type) as typename from fooditems P",
+      function (error, result) {
+        var user = JSON.parse(localstorage.getItem("usertoken"));
 
-      if (user === null) {
-        res.redirect("/signin");
-      } else {
-        if (error) {
-          console.log("Error : ", error);
-          res.render("index", { status: false, data: [] });
+        if (user === null) {
+          res.redirect("/signin");
         } else {
-          console.log("Result : ", result);
-          res.render("index", { status: true, data: result });
+          if (error) {
+            console.log("Error : ", error);
+            res.render("index", { status: false, data: [], user: [] });
+          } else {
+            console.log("Result : ", result);
+            res.render("index", { status: true, data: result, user: user });
+          }
         }
       }
-    }
-  );
+    );
+  } catch (error) {
+    res.redirect("/error");
+  }
 });
 
 module.exports = router;
