@@ -93,6 +93,7 @@ router.get("/dashboard", function (req, res) {
 
 router.get("/add", function (req, res) {
   var admin = JSON.parse(localstorage.getItem("token"));
+
   if (admin === null) {
     res.render("adminSignIn", { msg: "Don't need to do that" });
   } else {
@@ -102,28 +103,39 @@ router.get("/add", function (req, res) {
 
 router.get("/fetch_all_types", function (req, res) {
   db.query("select * from type", function (error, result) {
-    if (error) {
-      {
-        res.status(500).json([]);
-      }
+    var admin = JSON.parse(localstorage.getItem("token"));
+    if (admin === null) {
+      res.render("adminSignIn", { msg: "Don't need to do that" });
     } else {
-      res.status(200).json({
-        types: result,
-      });
+      if (error) {
+        {
+          res.status(500).json([]);
+        }
+      } else {
+        res.status(200).json({
+          types: result,
+        });
+      }
     }
   });
 });
 
 router.get("/fetch_all_categories", function (req, res) {
   db.query("select * from foodcategory", function (error, result) {
-    if (error) {
-      {
-        res.status(500).json([]);
-      }
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.render("adminSignIn", { msg: "Don't need to do that" });
     } else {
-      res.status(200).json({
-        category: result,
-      });
+      if (error) {
+        {
+          res.status(500).json([]);
+        }
+      } else {
+        res.status(200).json({
+          category: result,
+        });
+      }
     }
   });
 });
@@ -133,14 +145,20 @@ router.get("/fetch_all_subcategories", function (req, res) {
     "select * from foodsubcategory where foodcategoryid=?",
     [req.query.foodcategoryid],
     function (error, result) {
-      if (error) {
-        {
-          res.status(500).json([]);
-        }
+      var admin = JSON.parse(localstorage.getItem("token"));
+
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.status(200).json({
-          subcategory: result,
-        });
+        if (error) {
+          {
+            res.status(500).json([]);
+          }
+        } else {
+          res.status(200).json({
+            subcategory: result,
+          });
+        }
       }
     }
   );
@@ -160,10 +178,16 @@ router.post("/addItem", upload.any(), function (req, res) {
       req.files[0].filename,
     ],
     function (error, result) {
-      if (error) {
-        res.render("addItem", { msg: "Server Error" });
+      var admin = JSON.parse(localstorage.getItem("token"));
+
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.render("addItem", { msg: "" });
+        if (error) {
+          res.render("addItem", { msg: "Server Error" });
+        } else {
+          res.render("addItem", { msg: "" });
+        }
       }
     }
   );
@@ -174,6 +198,7 @@ router.get("/display", function (req, res) {
     "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodtype from type B where B.foodid=P.type) as typename from fooditems P",
     function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));
+
       if (admin === null) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
@@ -204,6 +229,7 @@ router.get("/display", function (req, res) {
 
 router.get("/addCat", function (req, res) {
   var admin = JSON.parse(localstorage.getItem("token"));
+
   if (admin === null) {
     res.render("adminSignIn", { msg: "Don't need to do that" });
   } else {
@@ -213,6 +239,7 @@ router.get("/addCat", function (req, res) {
 
 router.get("/deleteCat", function (req, res) {
   var admin = JSON.parse(localstorage.getItem("token"));
+
   if (admin === null) {
     res.render("adminSignIn", { msg: "Don't need to do that" });
   } else {
@@ -225,10 +252,16 @@ router.post("/addCategory", function (req, res) {
     "insert into foodcategory(foodcategoryname) values(?)",
     [req.body.foodcategoryname],
     function (error, result) {
-      if (error) {
-        res.render("addCategory");
+      var admin = JSON.parse(localstorage.getItem("token"));
+
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.render("addCategory");
+        if (error) {
+          res.render("addCategory");
+        } else {
+          res.render("addCategory");
+        }
       }
     }
   );
@@ -236,6 +269,7 @@ router.post("/addCategory", function (req, res) {
 
 router.get("/addSubCat", function (req, res) {
   var admin = JSON.parse(localstorage.getItem("token"));
+
   if (admin === null) {
     res.render("adminSignIn", { msg: "Don't need to do that" });
   } else {
@@ -245,6 +279,7 @@ router.get("/addSubCat", function (req, res) {
 
 router.get("/deleteSubCat", function (req, res) {
   var admin = JSON.parse(localstorage.getItem("token"));
+
   if (admin === null) {
     res.render("adminSignIn", { msg: "Don't need to do that" });
   } else {
@@ -258,6 +293,7 @@ router.post("/addSubCategory", function (req, res) {
     [req.body.foodcategoryid, req.body.foodsubcategoryname],
     function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));
+
       if (admin === null) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
@@ -285,6 +321,7 @@ router.get("/editProduct", function (req, res) {
     ],
     function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));
+
       if (admin === null) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
@@ -310,6 +347,7 @@ router.get("/deleteItem", function (req, res) {
     [req.query.id],
     function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));
+
       if (admin === null) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
@@ -334,12 +372,18 @@ router.post("/updatePicture", upload.any(), function (req, res) {
     "update fooditems set picture = ? where id = ?",
     [req.files[0].filename, req.body.id],
     function (error, result) {
-      if (error) {
-        res.status(500).json({ status: false, message: "Server Error" });
+      var admin = JSON.parse(localstorage.getItem("token"));
+
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res
-          .status(200)
-          .json({ status: true, message: "Picture Updated Successfully" });
+        if (error) {
+          res.status(500).json({ status: false, message: "Server Error" });
+        } else {
+          res
+            .status(200)
+            .json({ status: true, message: "Picture Updated Successfully" });
+        }
       }
     }
   );
@@ -355,6 +399,7 @@ router.get("/deleteCategory", function (req, res) {
     ],
     function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));
+
       if (admin === null) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
@@ -379,6 +424,7 @@ router.get("/deleteSubCategory", function (req, res) {
     ],
     function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));
+
       if (admin === null) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
