@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var db = require("./db");
 var upload = require("./multer");
+var localstorage = require("node-localstorage").localstorage;
 
 router.get("/signup", function (req, res) {
   res.render("adminSignup", { message: "", messageError: "" });
