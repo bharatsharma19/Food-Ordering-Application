@@ -35,13 +35,25 @@
               <a class="nav-link" href="#">Order Items</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <button class="btn btn-outline-success" type="submit">
-              <a href="#" style="text-decoration: none; color: inherit"
-                >Sign Out</a
-              >
-            </button>
+          <form class="form-inline my-2 my-lg-0" style="margin-right: 12px">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search Food Item"
+              aria-label="Search"
+              id="myInput"
+              onkeyup="searchInList()"
+            />
           </form>
+          <button
+            class="btn btn-outline-success"
+            type="submit"
+            style="margin-left: 4px"
+          >
+            <a href="#" style="text-decoration: none; color: inherit"
+              >Sign Out</a
+            >
+          </button>
         </div>
       </div>
     </nav>
@@ -146,5 +158,25 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function searchInList() {
+        var input = document.getElementById("myInput");
+        var convert = input.value.toUpperCase();
+        var searchProduct = document.getElementById("searchProduct");
+        var pName = searchProduct.getElementsByTagName("h5");
+        var pDesc = searchProduct.getElementsByTagName("p");
+        var cards = searchProduct.getElementsByClassName("card my-3");
+        for (let i = 0; i < pName.length; i++) {
+          if (
+            pName[i].innerHTML.toUpperCase().includes(convert) ||
+            pDesc[i].innerHTML.toUpperCase().includes(convert)
+          ) {
+            cards[i].style.display = "";
+          } else {
+            cards[i].style.display = "none";
+          }
+        }
+      }
+    </script>
   </body>
 </html>
