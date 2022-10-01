@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up - Foodie</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body
+    style="
+      background: #3494e6;
+      background: -webkit-linear-gradient(to right, #ec6ead, #3494e6);
+      background: linear-gradient(to right, #ec6ead, #3494e6);
+    "
+  >
+    <h2
+      class="text-center my-4"
+      style="
+        text-decoration: underline;
+        font-weight: bolder;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-variant: normal;
+      "
+    >
+      Create An Account - Foodie
+    </h2>
+    <form action="/signedup" method="post">
+      <div class="container my-4">
+        <div
+          class="container text-center m-4"
+          style="border: 2px solid azure; border-radius: 16px"
+        >
+          <div class="row my-3">
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="name"
+                  name="username"
+                  placeholder="Enter your Name"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="email"
+                  name="useremail"
+                  placeholder="Enter your Email Address"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="number"
+                  name="usercontact"
+                  placeholder="Enter your Contact No."
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="number"
+                  name="userpincode"
+                  placeholder="Enter your Pin-Code - PinCode only contain 6 digits"
+                  class="form-control"
+                  minlength="6"
+                  maxlength="6"
+                  min="6"
+                  max="6"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="name"
+                  name="useraddress"
+                  placeholder="Enter your Full-Address"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="password"
+                  name="userpassword"
+                  placeholder="Enter your Password"
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="mb-3">
+                <input
+                  type="password"
+                  name="confirmpassword"
+                  placeholder="Confirm your Password"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row my-5">
+            <div class="col">
+              <div class="d-flex justify-content-center">
+                <button
+                  type="submit"
+                  class="btn btn-warning btn-block btn-lg gradient-custom-4 text-body"
+                  name="action"
+                >
+                  Register
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="text-center text-lg-start pt-2">
+            <p class="text-center mb-0" style="color: black">
+              Have already an account?
+              <a href="/signin" class="fw-bold text-body"
+                ><u>Sign In Here</u></a
+              >
+            </p>
+          </div>
+          <div class="row my-3">
+            <div class="col">
+              <% if(msg === 'Error') { %>
+              <h3 class="text-center" style="color: red">
+                <b><%= msg %></b>
+              </h3>
+              <% } else { %>
+              <h3 class="text-center" style="color: blue">
+                <b><%= msg %></b>
+              </h3>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
