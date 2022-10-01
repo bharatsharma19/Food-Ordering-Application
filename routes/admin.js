@@ -1,8 +1,11 @@
 var express = require("express");
+const { LocalStorage } = require("node-localstorage");
 var router = express.Router();
 var db = require("./db");
 var upload = require("./multer");
 var localstorage = require("node-localstorage").localstorage;
+
+localstorage = new LocalStorage("./scratch");
 
 router.get("/signup", function (req, res) {
   res.render("adminSignup", { message: "", messageError: "" });
@@ -48,6 +51,7 @@ router.post("/checkadmin", function (req, res) {
       } else {
         console.log("Result : ", result);
         if (result.length === 1) {
+          localstorage.setItem("token", JSON.stringify(result[0]));
           res.redirect("/admin/dashboard");
         } else {
           res.render("adminSignin", {
@@ -60,6 +64,7 @@ router.post("/checkadmin", function (req, res) {
 });
 
 router.get("/signout", function (req, res) {
+  localstorage.removeItem("token");
   res.redirect("/");
 });
 
@@ -69,19 +74,30 @@ router.get("/dashboard", function (req, res) {
     "select count(*) as countCategory from foodcategory; select count(*) as countSubCategory from foodsubcategory; select count(*) as countTotalItems from fooditems";
 
   db.query(query, function (error, result) {
-    if (error) {
-      res.render("dashboard", { status: false, result: [] });
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.render("adminSignIn", { msg: "Don't need to do that" });
     } else {
-      res.render("dashboard", {
-        status: true,
-        result: result,
-      });
+      if (error) {
+        res.render("dashboard", { status: false, result: [] });
+      } else {
+        res.render("dashboard", {
+          status: true,
+          result: result,
+        });
+      }
     }
   });
 });
 
 router.get("/add", function (req, res) {
-  res.render("addItem", { msg: "" });
+  var admin = JSON.parse(localstorage.getItem("token"));
+  if (admin === null) {
+    res.render("adminSignIn", { msg: "Don't need to do that" });
+  } else {
+    res.render("addItem", { msg: "" });
+  }
 });
 
 router.get("/fetch_all_types", function (req, res) {
@@ -157,24 +173,29 @@ router.get("/display", function (req, res) {
   db.query(
     "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodtype from type B where B.foodid=P.type) as typename from fooditems P",
     function (error, result) {
-      if (error) {
-        res.render("display", {
-          status: false,
-          data: "Server Error...",
-        });
+      var admin = JSON.parse(localstorage.getItem("token"));
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        if (result.length == 0) {
+        if (error) {
           res.render("display", {
             status: false,
-            index: 0,
-            data: "No Records Found !",
+            data: "Server Error...",
           });
         } else {
-          res.render("display", {
-            status: true,
-            index: 0,
-            data: result,
-          });
+          if (result.length == 0) {
+            res.render("display", {
+              status: false,
+              index: 0,
+              data: "No Records Found !",
+            });
+          } else {
+            res.render("display", {
+              status: true,
+              index: 0,
+              data: result,
+            });
+          }
         }
       }
     }
@@ -182,11 +203,21 @@ router.get("/display", function (req, res) {
 });
 
 router.get("/addCat", function (req, res) {
-  res.render("addCategory");
+  var admin = JSON.parse(localstorage.getItem("token"));
+  if (admin === null) {
+    res.render("adminSignIn", { msg: "Don't need to do that" });
+  } else {
+    res.render("addCategory");
+  }
 });
 
 router.get("/deleteCat", function (req, res) {
-  res.render("deleteCategory");
+  var admin = JSON.parse(localstorage.getItem("token"));
+  if (admin === null) {
+    res.render("adminSignIn", { msg: "Don't need to do that" });
+  } else {
+    res.render("deleteCategory");
+  }
 });
 
 router.post("/addCategory", function (req, res) {
@@ -204,11 +235,21 @@ router.post("/addCategory", function (req, res) {
 });
 
 router.get("/addSubCat", function (req, res) {
-  res.render("addSubCategory");
+  var admin = JSON.parse(localstorage.getItem("token"));
+  if (admin === null) {
+    res.render("adminSignIn", { msg: "Don't need to do that" });
+  } else {
+    res.render("addSubCategory");
+  }
 });
 
 router.get("/deleteSubCat", function (req, res) {
-  res.render("deleteSubCategory");
+  var admin = JSON.parse(localstorage.getItem("token"));
+  if (admin === null) {
+    res.render("adminSignIn", { msg: "Don't need to do that" });
+  } else {
+    res.render("deleteSubCategory");
+  }
 });
 
 router.post("/addSubCategory", function (req, res) {
@@ -216,10 +257,15 @@ router.post("/addSubCategory", function (req, res) {
     "insert into foodsubcategory(foodcategoryid, foodsubcategoryname) values(?, ?)",
     [req.body.foodcategoryid, req.body.foodsubcategoryname],
     function (error, result) {
-      if (error) {
-        res.render("addSubCategory");
+      var admin = JSON.parse(localstorage.getItem("token"));
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.render("addSubCategory");
+        if (error) {
+          res.render("addSubCategory");
+        } else {
+          res.render("addSubCategory");
+        }
       }
     }
   );
@@ -238,16 +284,21 @@ router.get("/editProduct", function (req, res) {
       req.query.id,
     ],
     function (error, result) {
-      if (error) {
-        res.status(500).json({
-          status: false,
-          message: "Server Error...",
-        });
+      var admin = JSON.parse(localstorage.getItem("token"));
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.status(200).json({
-          status: true,
-          message: "Record Successfully Modified!",
-        });
+        if (error) {
+          res.status(500).json({
+            status: false,
+            message: "Server Error...",
+          });
+        } else {
+          res.status(200).json({
+            status: true,
+            message: "Record Successfully Modified!",
+          });
+        }
       }
     }
   );
@@ -258,16 +309,21 @@ router.get("/deleteItem", function (req, res) {
     "delete from fooditems where id = ?",
     [req.query.id],
     function (error, result) {
-      if (error) {
-        res.status(500).json({
-          status: false,
-          message: "Server Error...",
-        });
+      var admin = JSON.parse(localstorage.getItem("token"));
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.status(200).json({
-          status: true,
-          message: "Record Successfully Deleted!",
-        });
+        if (error) {
+          res.status(500).json({
+            status: false,
+            message: "Server Error...",
+          });
+        } else {
+          res.status(200).json({
+            status: true,
+            message: "Record Successfully Deleted!",
+          });
+        }
       }
     }
   );
@@ -298,10 +354,15 @@ router.get("/deleteCategory", function (req, res) {
       req.query.foodcategoryid,
     ],
     function (error, result) {
-      if (error) {
-        res.redirect("/admin/deleteCat");
+      var admin = JSON.parse(localstorage.getItem("token"));
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.redirect("/admin/deleteCat");
+        if (error) {
+          res.redirect("/admin/deleteCat");
+        } else {
+          res.redirect("/admin/deleteCat");
+        }
       }
     }
   );
@@ -317,10 +378,15 @@ router.get("/deleteSubCategory", function (req, res) {
       req.query.foodcategoryid,
     ],
     function (error, result) {
-      if (error) {
-        res.redirect("/admin/deleteSubCat");
+      var admin = JSON.parse(localstorage.getItem("token"));
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
-        res.redirect("/admin/deleteSubCat");
+        if (error) {
+          res.redirect("/admin/deleteSubCat");
+        } else {
+          res.redirect("/admin/deleteSubCat");
+        }
       }
     }
   );
