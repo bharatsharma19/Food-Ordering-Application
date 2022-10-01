@@ -4,7 +4,7 @@ $(document).ready(function () {
   $.getJSON(`${url}/fetch_all_types`, function (data) {
     //alert(JSON.stringify(data));
     data.types.map((item) => {
-      $("#foodid").append($("<option>").text(item.foodtype).val(item.foodid));
+      $("#foodid").append($("<option>").text(item.type).val(item.foodid));
     });
   });
 

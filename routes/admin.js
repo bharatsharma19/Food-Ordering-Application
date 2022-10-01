@@ -5,7 +5,7 @@ var db = require("./db");
 var upload = require("./multer");
 var localstorage = require("node-localstorage").localstorage;
 
-localstorage = new LocalStorage("./scratch");
+localstorage = new LocalStorage("./adminscratch");
 
 router.get("/signup", function (req, res) {
   try {
@@ -250,7 +250,7 @@ router.post("/addItem", upload.any(), function (req, res) {
 router.get("/display", function (req, res) {
   try {
     db.query(
-      "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.foodtype from type B where B.foodid=P.type) as typename from fooditems P",
+      "select P.*, (select C.foodcategoryname from foodcategory C where C.foodcategoryid=P.foodcategoryid) as categoryname,(select S.foodsubcategoryname from foodsubcategory S where S.foodsubcategoryid=P.foodsubcategoryid) as subcategoryname,(select B.type from type B where B.foodid=P.type) as typename from fooditems P",
       function (error, result) {
         var admin = JSON.parse(localstorage.getItem("token"));
 

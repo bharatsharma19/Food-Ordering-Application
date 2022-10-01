@@ -12,7 +12,135 @@
     />
   </head>
   <body>
-    <h1>Home Page</h1>
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Foodie</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Order Items</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <button class="btn btn-outline-success" type="submit">
+              <a href="#" style="text-decoration: none; color: inherit"
+                >Sign Out</a
+              >
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container my-3">
+      <div class="row">
+        <h3 style="text-decoration: underline">Hello, Dummy</h3>
+      </div>
+    </div>
+
+    <% if(status == false) { %>
+    <h3 style="display: flex; justify-content: center; align-items: center">
+      <%= data %>
+    </h3>
+    <%} else { %>
+    <!-- Page Content Start -->
+    <div class="container my-3">
+      <div class="row" id="searchProduct">
+        <% data.map((item) => { %>
+        <div
+          class="card my-3"
+          id="productCard"
+          style="width: 18rem; padding: 8px; margin: auto"
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: flex-start;
+              position: absolute;
+              left: 0;
+            "
+          >
+            <% if(item.typename === 'Veg') { %>
+            <span class="badge rounded-pill text-bg-success">
+              <b> <%= item.typename %> </b>
+            </span>
+            <% } else { %>
+            <span class="badge rounded-pill text-bg-danger">
+              <b> <%= item.typename %> </b>
+            </span>
+            <% } %>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              position: absolute;
+              right: 0;
+            "
+          >
+            <span class="badge rounded-pill text-bg-light">
+              <strike style="color: red; font-size: 18px">
+                &#8377; <%= item.price %>/-
+              </strike>
+              &nbsp;&nbsp;
+              <i style="color: blue; font-size: 18px">
+                &#8377; <%= item.offerprice %>/-
+              </i>
+            </span>
+          </div>
+          <div>
+            <% if(item.picture === null ) { %>
+            <img
+              src="/images/none.jpg"
+              class="card-img-top"
+              alt="..."
+              style="
+                width: 17rem;
+                height: 164px;
+                border-radius: 18px;
+                margin-top: 22px;
+              "
+            />
+            <% } else { %>
+            <img
+              src="/images/<%= item.picture %>"
+              class="card-img-top"
+              alt="..."
+              style="
+                width: 17rem;
+                height: 164px;
+                border-radius: 18px;
+                margin-top: 22px;
+              "
+            />
+            <% } %>
+            <div class="card-body">
+              <h5 class="card-title"><%= item.name %></h5>
+              <p class="card-text">Rating : <%= item.rating %></p>
+              <a href="#" class="btn btn-outline-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+    <!-- Page Content End -->
+    <% } %>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
