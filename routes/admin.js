@@ -82,9 +82,11 @@ router.get("/dashboard", function (req, res) {
       if (error) {
         res.render("dashboard", { status: false, result: [] });
       } else {
+        console.log(result);
         res.render("dashboard", {
           status: true,
           result: result,
+          admin: admin,
         });
       }
     }
