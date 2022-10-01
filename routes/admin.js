@@ -62,10 +62,8 @@ router.post("/checkadmin", function (req, res) {
       [req.body.adminemail, req.body.admincontact, req.body.adminpassword],
       function (error, result) {
         if (error) {
-          console.log("Error : ", error);
           res.render("adminSignin", { msg: "Server Error" });
         } else {
-          console.log("Result : ", result);
           if (result.length === 1) {
             localstorage.setItem("token", JSON.stringify(result[0]));
             res.redirect("/admin/dashboard");
@@ -108,7 +106,6 @@ router.get("/dashboard", function (req, res) {
         if (error) {
           res.render("dashboard", { status: false, result: [] });
         } else {
-          console.log(result);
           res.render("dashboard", {
             status: true,
             result: result,
