@@ -3,6 +3,65 @@ var router = express.Router();
 var db = require("./db");
 var upload = require("./multer");
 
+router.get("/signup", function (req, res) {
+  res.render("adminSignup", { message: "", messageError: "" });
+});
+
+router.post("/signedup", function (req, res) {
+  db.query(
+    "insert into adminlogin (adminname, adminemail, admincontact, adminpassword) values(?, ?, ?, ?)",
+    [
+      req.body.adminname,
+      req.body.adminemail,
+      req.body.admincontact,
+      req.body.adminpassword,
+    ],
+    function (error, result) {
+      if (error) {
+        res.render("adminSignup", {
+          message: "",
+          messageError: "Server Error",
+        });
+      } else {
+        res.render("adminSignup", {
+          message: "Account Created Successfully",
+          messageError: "",
+        });
+      }
+    }
+  );
+});
+
+router.get("/signin", function (req, res) {
+  res.render("adminSignin", { msg: "" });
+});
+
+router.post("/checkadmin", function (req, res) {
+  db.query(
+    "select * from adminlogin where (adminemail = ? or admincontact = ?) and adminpassword = ?",
+    [req.body.adminemail, req.body.admincontact, req.body.adminpassword],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.render("adminSignin", { msg: "Server Error" });
+      } else {
+        console.log("Result : ", result);
+        if (result.length === 1) {
+          res.redirect("/admin/dashboard");
+        } else {
+          res.render("adminSignin", {
+            msg: "Invalid Email/Contact or Password",
+          });
+        }
+      }
+    }
+  );
+});
+
+router.get("/signout", function (req, res) {
+  res.redirect("/");
+});
+
 /* GET home page. */
 router.get("/dashboard", function (req, res) {
   var query =

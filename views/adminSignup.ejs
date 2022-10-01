@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Sign Up - Foodie</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <link rel="stylesheet" href="/stylesheets/signup.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <form action="/admin/signedup" method="post">
+      <section
+        class="vh-100 bg-image"
+        style="
+          background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+        "
+      >
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+          <div class="container h-100">
+            <div
+              class="row d-flex justify-content-center align-items-center h-100"
+            >
+              <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                <div class="card" style="border-radius: 15px">
+                  <div class="card-body p-2">
+                    <h4 class="text-uppercase text-center mb-3">
+                      Create an Account
+                    </h4>
+
+                    <form>
+                      <div class="form-outline mb-3">
+                        <input
+                          type="text"
+                          id="form3Example1cg"
+                          class="form-control form-control-lg"
+                          name="adminname"
+                        />
+                        <label class="form-label" for="form3Example1cg"
+                          >Your Name</label
+                        >
+                      </div>
+
+                      <div class="form-outline mb-3">
+                        <input
+                          type="email"
+                          id="form3Example3cg"
+                          class="form-control form-control-lg"
+                          name="adminemail"
+                        />
+                        <label class="form-label" for="form3Example3cg"
+                          >Your Email</label
+                        >
+                      </div>
+
+                      <div class="form-outline mb-3">
+                        <input
+                          type="number"
+                          id="form3Example3cg"
+                          class="form-control form-control-lg"
+                          name="admincontact"
+                        />
+                        <label class="form-label" for="form3Example3cg"
+                          >Your Contact</label
+                        >
+                      </div>
+
+                      <div class="form-outline mb-3">
+                        <input
+                          type="password"
+                          id="form3Example4cg"
+                          class="form-control form-control-lg"
+                          name="adminpassword"
+                        />
+                        <label class="form-label" for="form3Example4cg"
+                          >Password</label
+                        >
+                      </div>
+
+                      <div class="form-outline mb-3">
+                        <input
+                          type="password"
+                          id="form3Example4cdg"
+                          class="form-control form-control-lg"
+                          name="confirmpassword"
+                        />
+                        <label class="form-label" for="form3Example4cdg"
+                          >Repeat your password</label
+                        >
+                      </div>
+
+                      <div
+                        class="form-check d-flex justify-content-center mb-3"
+                      >
+                        <input
+                          class="form-check-input me-2"
+                          type="checkbox"
+                          value=""
+                          id="form2Example3cg"
+                        />
+                        <label class="form-check-label" for="form2Example3g">
+                          I agree all statements in
+                          <a href="#!" class="text-body"
+                            ><u>Terms of service</u></a
+                          >
+                        </label>
+                      </div>
+
+                      <div class="d-flex justify-content-center">
+                        <button
+                          type="submit"
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                          name="action"
+                        >
+                          Register
+                        </button>
+                      </div>
+
+                      <p class="text-center text-muted mt-3 mb-0">
+                        <b> <%= message %> </b>
+                      </p>
+
+                      <p class="text-center text-muted mt-3 mb-0">
+                        <b> <%= messageError %> </b>
+                      </p>
+
+                      <p class="text-center text-muted mt-3 mb-0">
+                        Have already an account?
+                        <a href="/admin/signin" class="fw-bold text-body"
+                          ><u>Sign In Here</u></a
+                        >
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

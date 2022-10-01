@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Sign In - Foodie</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.4.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.4.0/mdb.min.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js
+    "></script>
+    <style>
+      .divider:after,
+      .divider:before {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #eee;
+      }
+      .h-custom {
+        height: calc(100% - 73px);
+      }
+      @media (max-width: 450px) {
+        .h-custom {
+          height: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Login Form Start  -->
+    <form action="/admin/checkadmin" method="post">
+      <section class="vh-100">
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">Foodie</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+            </div>
+          </div>
+        </nav>
+        <!-- Navbar End -->
+
+        <div class="container-fluid h-custom">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col-md-9 col-lg-6 col-xl-5">
+              <img
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                class="img-fluid"
+                alt="Sample image"
+              />
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+              <form action="">
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input
+                    required
+                    type="text"
+                    name="adminemail"
+                    id="form3Example3"
+                    class="form-control form-control-lg"
+                    placeholder="Enter a valid User Id"
+                    autocomplete="email"
+                  />
+                  <label class="form-label" for="form3Example3"
+                    >Email Id / Mobile No.</label
+                  >
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                  <input
+                    required
+                    name="adminpassword"
+                    type="password"
+                    id="form3Example4"
+                    class="form-control form-control-lg"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
+                  />
+                  <label class="form-label" for="form3Example4">Password</label>
+                </div>
+
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button
+                    name="action"
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem"
+                  >
+                    Sign In
+                  </button>
+                  <p class="text-center text-muted mt-5 mb-0">
+                    Don't have an account?
+                    <a href="/admin/signup" class="fw-bold text-body"
+                      ><u>Sign Up Here</u></a
+                    >
+                  </p>
+                </div>
+                <div
+                  style="
+                    font-weight: bold;
+                    color: red;
+                    font-style: initial;
+                    padding-top: 20px;
+                    font-size: 18px;
+                  "
+                >
+                  <%=msg%>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </form>
+    <!-- Login Form End -->
+  </body>
+</html>
