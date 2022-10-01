@@ -38,10 +38,8 @@ router.post("/signedup", function (req, res) {
       ],
       function (error, result) {
         if (error) {
-          console.log("Error : ", error);
           res.render("userSignUp", { msg: "Error" });
         } else {
-          console.log("Result : ", result);
           res.render("userSignUp", { msg: "Account Created Successfully" });
         }
       }
@@ -109,10 +107,8 @@ router.get("/", function (req, res) {
           res.redirect("/signin");
         } else {
           if (error) {
-            console.log("Error : ", error);
             res.render("index", { status: false, data: [], user: [] });
           } else {
-            console.log("Result : ", result);
             res.render("index", { status: true, data: result, user: user });
           }
         }
