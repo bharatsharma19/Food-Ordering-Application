@@ -5,7 +5,7 @@ var pool = mysql.createConnection({
   port: 3306,
   database: "foodie",
   user: "root",
-  password: "112233",
+  password: "",
   multipleStatements: true,
 });
 
