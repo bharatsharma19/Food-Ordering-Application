@@ -652,42 +652,64 @@ router.get("/deleteSubCategory", function (req, res) {
 });
 
 router.get("/registeredUsers", function (req, res) {
-  db.query("select * from userlogin", function (error, result) {
-    if (error) {
-      console.log("Error : ", error);
-      res.render("registeredUsers", {
-        status: false,
-        error: error,
-        result: null,
-        index: null,
-      });
+  try {
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.render("adminSignIn", { msg: "Don't need to do that" });
     } else {
-      res.render("registeredUsers", {
-        status: true,
-        error: null,
-        result: result,
-        index: 0,
+      db.query("select * from userlogin", function (error, result) {
+        if (error) {
+          console.log("Error : ", error);
+          res.render("registeredUsers", {
+            status: false,
+            error: error,
+            result: null,
+            index: null,
+          });
+        } else {
+          res.render("registeredUsers", {
+            status: true,
+            error: null,
+            result: result,
+            index: 0,
+          });
+        }
       });
     }
-  });
+  } catch (error) {
+    localstorage.removeItem("token");
+    res.redirect("/admin/error");
+  }
 });
 
 router.get("/deleteUser", function (req, res) {
-  db.query(
-    "delete from userlogin where userid = ?",
-    [req.query.userid],
-    function (error, result) {
-      if (error) {
-        res.status(500).json({
-          message: "Server Error...",
-        });
-      } else {
-        res.status(200).json({
-          message: "User Deleted Successfully",
-        });
-      }
+  try {
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.render("adminSignIn", { msg: "Don't need to do that" });
+    } else {
+      db.query(
+        "delete from userlogin where userid = ?",
+        [req.query.userid],
+        function (error, result) {
+          if (error) {
+            res.status(500).json({
+              message: "Server Error...",
+            });
+          } else {
+            res.status(200).json({
+              message: "User Deleted Successfully",
+            });
+          }
+        }
+      );
     }
-  );
+  } catch (error) {
+    localstorage.removeItem("token");
+    res.redirect("/admin/error");
+  }
 });
 
 module.exports = router;
