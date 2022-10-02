@@ -659,15 +659,35 @@ router.get("/registeredUsers", function (req, res) {
         status: false,
         error: error,
         result: null,
+        index: null,
       });
     } else {
       res.render("registeredUsers", {
         status: true,
         error: null,
         result: result,
+        index: 0,
       });
     }
   });
+});
+
+router.get("/deleteUser", function (req, res) {
+  db.query(
+    "delete from userlogin where userid = ?",
+    [req.query.userid],
+    function (error, result) {
+      if (error) {
+        res.status(500).json({
+          message: "Server Error...",
+        });
+      } else {
+        res.status(200).json({
+          message: "User Deleted Successfully",
+        });
+      }
+    }
+  );
 });
 
 module.exports = router;
