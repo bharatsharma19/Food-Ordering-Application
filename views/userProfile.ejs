@@ -310,7 +310,12 @@
                 </div>
               </div>
               <div class="text-center m-2">
-                <button type="submit" id="updBtn" class="btn btn-primary">
+                <button
+                  type="submit"
+                  id="updBtn"
+                  class="btn btn-primary"
+                  onclick="load()"
+                >
                   Edit Profile
                 </button>
               </div>
@@ -328,6 +333,49 @@
         </div>
       </div>
     </div>
+
+    <!-- Delete User Modal -->
+    <form action="" method="post">
+      <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <input type="hidden" name="userid" id="userid" />
+              <h5 class="modal-title">Confirmation</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you Sure to delete your Profile ?</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                id="deleteBtn"
+                onclick="load()"
+              >
+                Delete
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
 
     <% } %>
 
@@ -355,8 +403,6 @@
           $("#userpassword").val(user.userpassword);
           $("#cp").val(user.userpassword);
 
-          alert(user.userid);
-
           $("#updBtn").click(function () {
             $.getJSON(
               "/editUserProfile",
@@ -379,9 +425,21 @@
         $("#btnDelete").click(function () {
           $("#deleteModal").modal("show");
 
-          const user = JSON.stringify($(this).attr("userprofile"));
+          const user = JSON.parse($(this).attr("userprofile"));
 
-          alert(user);
+          $("#userid").val(user.userid);
+
+          $("#deleteBtn").click(function () {
+            $.getJSON(
+              "/deleteUserProfile",
+              {
+                userid: $("#userid").val(),
+              },
+              function () {
+                window.location.href = "http://localhost:3000";
+              }
+            );
+          });
         });
 
         $(".close").click(function () {
@@ -389,6 +447,11 @@
           $("#deleteModal").modal("hide");
         });
       });
+    </script>
+    <script>
+      function load() {
+        location.href = "http://localhost:3000";
+      }
     </script>
   </body>
 </html>

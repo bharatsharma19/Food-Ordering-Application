@@ -170,4 +170,23 @@ router.get("/editUserProfile", function (req, res) {
   );
 });
 
+router.get("/deleteUserProfile", function (req, res) {
+  db.query(
+    "delete from userlogin where userid = ?",
+    [req.query.userid],
+    function (error, result) {
+      if (error) {
+        console.log("Error : ", error);
+        res.status(500).json({
+          message: "Server Error...",
+        });
+      } else {
+        console.log("Result : ", result);
+        res.redirect("/");
+        localstorage.removeItem("usertoken");
+      }
+    }
+  );
+});
+
 module.exports = router;
