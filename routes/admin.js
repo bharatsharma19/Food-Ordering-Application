@@ -91,18 +91,17 @@ router.get("/forgotpassword", function (req, res) {
 });
 
 router.get("/signout", function (req, res) {
-  try {
-    var admin = JSON.parse(localstorage.getItem("token"));
+  var admin = JSON.parse(localstorage.getItem("token"));
+  localstorage.removeItem("token");
 
+  try {
     if (admin === null) {
       res.render("adminSignIn", { msg: "Don't need to do that" });
     } else {
-      localstorage.removeItem("token");
-      res.redirect("/");
+      res.redirect("/admin/signin");
     }
   } catch (error) {
-    localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/signin");
   }
 });
 

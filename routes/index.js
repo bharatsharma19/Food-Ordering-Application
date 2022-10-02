@@ -104,7 +104,7 @@ router.get("/", function (req, res) {
         var user = JSON.parse(localstorage.getItem("usertoken"));
 
         if (error) {
-          res.render("index", { status: false, data: [], user: [] });
+          res.render("index", { status: false, data: null, user: null });
         } else {
           if (user === null) {
             res.render("index", { status: true, data: result, user: null });
