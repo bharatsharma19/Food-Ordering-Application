@@ -11,7 +11,27 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <style>
+    .gradient-custom {
+      background: #f6d365;
+      background: -webkit-linear-gradient(
+        to right bottom,
+        rgba(246, 211, 101, 1),
+        rgba(253, 160, 133, 1)
+      );
+      background: linear-gradient(
+        to right bottom,
+        rgba(246, 211, 101, 1),
+        rgba(253, 160, 133, 1)
+      );
+    }
+  </style>
+  <script
+    src="https://kit.fontawesome.com/bda64bbf29.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <body class="gradient-custom">
     <% if(user === null ){ %>
     <div class="container my-3">
       <div class="row">
@@ -56,6 +76,82 @@
       </div>
     </nav>
 
+    <div class="container my-4">
+      <section style="height: 85vh">
+        <div class="container py-5 h-100">
+          <div
+            class="row d-flex justify-content-center align-items-center h-100"
+          >
+            <div class="col col-lg-6 mb-4 mb-lg-0">
+              <div class="card mb-3" style="border-radius: 0.5rem">
+                <div class="row g-0">
+                  <div
+                    class="col-md-4 gradient-custom text-center text-white"
+                    style="
+                      border-top-left-radius: 0.5rem;
+                      border-bottom-left-radius: 0.5rem;
+                    "
+                  >
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                      alt="Avatar"
+                      class="img-fluid my-4"
+                      style="width: 80px"
+                    />
+                    <h3 style="color: black"><%= user.username %></h3>
+                    <h5 style="color: black">
+                      Pin-Code : <%= user.userpincode %>
+                    </h5>
+                    <br />
+                    <i
+                      class="fa-solid fa-pen-to-square"
+                      id="editBtn"
+                      style="color: black; cursor: pointer; margin-right: 6px"
+                      onclick="editUser()"
+                    ></i>
+                    <i
+                      class="fa-solid fa-trash"
+                      id="deleteBtn"
+                      style="color: black; cursor: pointer; margin-left: 6px"
+                      onclick="deleteUser()"
+                    ></i>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body p-4">
+                      <h6>Information</h6>
+                      <hr class="mt-0 mb-4" />
+                      <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                          <h6>Email</h6>
+                          <p class="text-muted">
+                            <b> <%= user.useremail %> </b>
+                          </p>
+                        </div>
+                        <div class="col-6 mb-3">
+                          <h6>Phone</h6>
+                          <p class="text-muted">
+                            <b> +91-<%= user.usercontact %> </b>
+                          </p>
+                        </div>
+                      </div>
+                      <h6>Address</h6>
+                      <hr class="mt-0 mb-4" />
+                      <div>
+                        <div class="col-12 mb-3">
+                          <h6>Full Address</h6>
+                          <p class="text-muted"><%= user.useraddress %></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <% } %>
 
     <script
@@ -63,5 +159,16 @@
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
       crossorigin="anonymous"
     ></script>
+    <script>
+      function editUser() {
+        var editBtn = document.getElementById("editBtn");
+        console.log(editBtn);
+      }
+
+      function deleteUser() {
+        var deleteBtn = document.getElementById("deleteBtn");
+        console.log(deleteBtn);
+      }
+    </script>
   </body>
 </html>
