@@ -414,7 +414,7 @@
 
           $("#updBtn").click(function () {
             $.getJSON(
-              "/editAdminProfile",
+              "/admin/editAdminProfile",
               {
                 adminid: $("#adminid").val(),
                 adminname: $("#adminname").val(),
@@ -438,7 +438,7 @@
 
           $("#deleteBtn").click(function () {
             $.getJSON(
-              "/deleteAdminProfile",
+              "/admin/deleteAdminProfile",
               {
                 adminid: $("#adminid").val(),
               },
