@@ -135,13 +135,21 @@
           <td class="text-center"><%= item.userpincode %></td>
           <td class="text-center"><%= item.useraddress %></td>
           <td class="text-center">
-            <input
-              class="ves-effect waves-light btn-small btnDelete"
-              type="button"
-              value="Delete"
-              id="btnDelete"
-              users="<%=JSON.stringify(item)%>"
-            />
+            <button class="btn btn-outline-primary">
+              <input
+                class="ves-effect waves-light btn-small btnDelete"
+                type="button"
+                value="Delete"
+                id="btnDelete"
+                users="<%=JSON.stringify(item)%>"
+                style="
+                  background-color: inherit;
+                  border: none;
+                  color: inherit;
+                  border-radius: inherit;
+                "
+              />
+            </button>
           </td>
         </tr>
       </tbody>
