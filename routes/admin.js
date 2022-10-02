@@ -7,12 +7,16 @@ var localstorage = require("node-localstorage").localstorage;
 
 localstorage = new LocalStorage("./adminscratch");
 
+router.get("/error", function (req, res) {
+  res.render("bigError");
+});
+
 router.get("/signup", function (req, res) {
   try {
     res.render("adminSignup", { message: "", messageError: "" });
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/error");
   }
 });
 
@@ -42,7 +46,7 @@ router.post("/signedup", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/error");
   }
 });
 
@@ -51,7 +55,7 @@ router.get("/signin", function (req, res) {
     res.render("adminSignin", { msg: "" });
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/error");
   }
 });
 
@@ -86,7 +90,7 @@ router.get("/forgotpassword", function (req, res) {
     res.render("forgotPassword");
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/error");
   }
 });
 
@@ -120,7 +124,7 @@ router.get("/myprofile", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/error");
+    res.redirect("/admin/error");
   }
 });
 
@@ -154,7 +158,7 @@ router.get("/editAdminProfile", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/error");
   }
 });
 
@@ -182,7 +186,7 @@ router.get("/deleteAdminProfile", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/");
+    res.redirect("/admin/error");
   }
 });
 
@@ -211,7 +215,7 @@ router.get("/dashboard", function (req, res) {
     });
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -226,7 +230,7 @@ router.get("/add", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -338,7 +342,7 @@ router.post("/addItem", upload.any("picture"), function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -377,7 +381,7 @@ router.get("/display", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -392,7 +396,7 @@ router.get("/addCat", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -407,7 +411,7 @@ router.get("/deleteCat", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -432,7 +436,7 @@ router.post("/addCategory", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -447,7 +451,7 @@ router.get("/addSubCat", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -462,7 +466,7 @@ router.get("/deleteSubCat", function (req, res) {
     }
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -487,7 +491,7 @@ router.post("/addSubCategory", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -526,7 +530,7 @@ router.get("/editProduct", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -557,7 +561,7 @@ router.get("/deleteItem", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -584,7 +588,7 @@ router.post("/updatePicture", upload.any(), function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -613,7 +617,7 @@ router.get("/deleteCategory", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -643,7 +647,7 @@ router.get("/deleteSubCategory", function (req, res) {
     );
   } catch (error) {
     localstorage.removeItem("token");
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
