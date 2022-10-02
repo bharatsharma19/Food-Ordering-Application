@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Available Food Item - Foodie</title>
+    <title>Registered Users - Foodie</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,7 +12,6 @@
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js
     "></script>
-    <script src="/javascripts/foodie.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -40,13 +39,13 @@
               <a class="nav-link" href="/admin/add">Add Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/admin/display">View Products</a>
+              <a class="nav-link" href="/admin/display">View Products</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/admin/myprofile">My Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin/registeredUsers"
+              <a class="nav-link active" href="/admin/registeredUsers"
                 >Registered Users</a
               >
             </li>
@@ -97,7 +96,7 @@
     </nav>
 
     <h2 class="text-center" style="text-decoration: underline">
-      Available Food Items
+      Users
     </h2>
 
     <% if(status==false) {%>

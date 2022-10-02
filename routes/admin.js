@@ -651,6 +651,25 @@ router.get("/deleteSubCategory", function (req, res) {
   }
 });
 
+router.get("/registeredUsers", function (req, res) {
+  db.query("select * from userlogin", function (error, result) {
+    if (error) {
+      console.log("Error : ", error);
+      res.render("registeredUsers", {
+        status: false,
+        error: error,
+        result: null,
+      });
+    } else {
+      res.render("registeredUsers", {
+        status: true,
+        error: null,
+        result: result,
+      });
+    }
+  });
+});
+
 module.exports = router;
 
 // Bharat Sharma
