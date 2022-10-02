@@ -1,3 +1,4 @@
+const e = require("express");
 var express = require("express");
 const { LocalStorage } = require("node-localstorage");
 var router = express.Router();
@@ -142,6 +143,31 @@ router.get("/myprofile", function (req, res) {
     localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
+});
+
+router.get("/editUserProfile", function (req, res) {
+  db.query(
+    "update userlogin set username = ?, useremail = ?, usercontact = ?, userpincode = ?, useraddress = ?, userpassword = ? where userid = ?",
+    [
+      req.query.username,
+      req.query.useremail,
+      req.query.usercontact,
+      req.query.userpincode,
+      req.query.useraddress,
+      req.query.userpassword,
+      req.query.userid,
+    ],
+    function (error, result) {
+      if (error) {
+        res.status(500).json({
+          message: "Server Error...",
+        });
+      } else {
+        res.redirect("/");
+        localstorage.removeItem("usertoken");
+      }
+    }
+  );
 });
 
 module.exports = router;

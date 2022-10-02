@@ -30,6 +30,7 @@
     src="https://kit.fontawesome.com/bda64bbf29.js"
     crossorigin="anonymous"
   ></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <body class="gradient-custom">
     <% if(user === null ){ %>
@@ -103,18 +104,47 @@
                       Pin-Code : <%= user.userpincode %>
                     </h5>
                     <br />
-                    <i
+                    <input
+                      style="
+                        background-color: blue;
+                        color: white;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 16px;
+                        margin-bottom: 4px;
+                      "
+                      type="button"
+                      value="Edit Profile"
+                      id="btnEdit"
+                      userprofile="<%= JSON.stringify(user) %>"
+                    />
+                    <br />
+                    <input
+                      style="
+                        background-color: red;
+                        color: white;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 16px;
+                        margin-top: 4px;
+                      "
+                      type="button"
+                      value="Delete Profile"
+                      id="btnDelete"
+                      userprofile="<%= JSON.stringify(user) %>"
+                    />
+                    <!--i
                       class="fa-solid fa-pen-to-square"
                       id="editBtn"
                       style="color: black; cursor: pointer; margin-right: 6px"
                       onclick="editUser()"
                     ></i>
-                    <i
+                    <i--
                       class="fa-solid fa-trash"
                       id="deleteBtn"
                       style="color: black; cursor: pointer; margin-left: 6px"
                       onclick="deleteUser()"
-                    ></i>
+                    ></i-->
                   </div>
                   <div class="col-md-8">
                     <div class="card-body p-4">
@@ -152,6 +182,153 @@
       </section>
     </div>
 
+    <!-- Edit User Profile Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" class="col s12">
+              <input type="hidden" name="userid" id="userid" />
+              <div class="row">
+                <div class="input-field col s12">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Name</label
+                    >
+                    <input
+                      type="name"
+                      name="username"
+                      class="form-control"
+                      id="username"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      name="useremail"
+                      class="form-control"
+                      id="useremail"
+                      autocomplete="email"
+                    />
+                  </div>
+                </div>
+                <div class="input-field col s6">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Contact</label
+                    >
+                    <input
+                      type="number"
+                      name="usercontact"
+                      class="form-control"
+                      id="usercontact"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s3">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Pin-Code</label
+                    >
+                    <input
+                      type="number"
+                      name="userpincode"
+                      class="form-control"
+                      id="userpincode"
+                    />
+                  </div>
+                </div>
+                <div class="input-field col s9">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Address</label
+                    >
+                    <input
+                      type="name"
+                      name="useraddress"
+                      class="form-control"
+                      id="useraddress"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      name="userpassword"
+                      class="form-control"
+                      id="userpassword"
+                      autocomplete="new-password"
+                    />
+                  </div>
+                </div>
+                <div class="input-field col s6">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Confirm Password</label
+                    >
+                    <input
+                      type="password"
+                      name="cp"
+                      class="form-control"
+                      id="cp"
+                      autocomplete="new-password"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="text-center m-2">
+                <button type="submit" id="updBtn" class="btn btn-primary">
+                  Edit Profile
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary close"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <% } %>
 
     <script
@@ -160,15 +337,58 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      function editUser() {
-        var editBtn = document.getElementById("editBtn");
-        console.log(editBtn);
-      }
+      $(document).ready(function () {
+        $(".modal").modal();
 
-      function deleteUser() {
-        var deleteBtn = document.getElementById("deleteBtn");
-        console.log(deleteBtn);
-      }
+        $("#btnEdit").click(function () {
+          $("#exampleModal").modal("show");
+
+          const user = JSON.parse($(this).attr("userprofile"));
+
+          $("#userid").val(user.userid);
+
+          $("#username").val(user.username);
+          $("#useremail").val(user.useremail);
+          $("#usercontact").val(user.usercontact);
+          $("#userpincode").val(user.userpincode);
+          $("#useraddress").val(user.useraddress);
+          $("#userpassword").val(user.userpassword);
+          $("#cp").val(user.userpassword);
+
+          alert(user.userid);
+
+          $("#updBtn").click(function () {
+            $.getJSON(
+              "/editUserProfile",
+              {
+                userid: $("#userid").val(),
+                username: $("#username").val(),
+                useremail: $("#useremail").val(),
+                usercontact: $("#usercontact").val(),
+                userpincode: $("#userpincode").val(),
+                useraddress: $("#useraddress").val(),
+                userpassword: $("#userpassword").val(),
+              },
+              function () {
+                window.location.href = "http://localhost:3000";
+              }
+            );
+          });
+        });
+
+        $("#btnDelete").click(function () {
+          $("#deleteModal").modal("show");
+
+          const user = JSON.stringify($(this).attr("userprofile"));
+
+          alert(user);
+        });
+
+        $(".close").click(function () {
+          $("#exampleModal").modal("hide");
+          $("#deleteModal").modal("hide");
+        });
+      });
     </script>
   </body>
 </html>
