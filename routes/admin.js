@@ -227,7 +227,7 @@ router.get("/fetch_all_subcategories", function (req, res) {
   }
 });
 
-router.post("/addItem", upload.any(), function (req, res) {
+router.post("/addItem", upload.any("picture"), function (req, res) {
   try {
     db.query(
       "insert into fooditems(name, foodcategoryid, foodsubcategoryid, type, price, offerprice, rating, picture) values(?, ?, ?, ?, ?, ?, ?, ?)",
@@ -256,6 +256,7 @@ router.post("/addItem", upload.any(), function (req, res) {
       }
     );
   } catch (error) {
+    console.log("Error : ", error);
     localstorage.removeItem("token");
     res.redirect("/admin/signin");
   }
