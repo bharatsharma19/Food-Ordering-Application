@@ -125,4 +125,23 @@ router.get("/", function (req, res) {
   }
 });
 
+router.get("/myprofile", function (req, res) {
+  try {
+    var user = JSON.parse(localstorage.getItem("usertoken"));
+
+    if (user === null) {
+      res.redirect("/");
+    } else {
+      if (user === null) {
+        res.render("userProfile", { user: null });
+      } else {
+        res.render("userProfile", { user: user });
+      }
+    }
+  } catch (error) {
+    localstorage.removeItem("usertoken");
+    res.redirect("/error");
+  }
+});
+
 module.exports = router;
