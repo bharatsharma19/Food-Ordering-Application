@@ -89,7 +89,7 @@ router.post("/checkuser", function (req, res) {
 router.get("/signout", function (req, res) {
   try {
     localstorage.removeItem("usertoken");
-    res.redirect("/signin");
+    res.redirect("/");
   } catch (error) {
     res.redirect("/error");
   }
@@ -103,11 +103,11 @@ router.get("/", function (req, res) {
       function (error, result) {
         var user = JSON.parse(localstorage.getItem("usertoken"));
 
-        if (user === null) {
-          res.redirect("/signin");
+        if (error) {
+          res.render("index", { status: false, data: [], user: [] });
         } else {
-          if (error) {
-            res.render("index", { status: false, data: [], user: [] });
+          if (user === null) {
+            res.render("index", { status: true, data: result, user: null });
           } else {
             res.render("index", { status: true, data: result, user: user });
           }

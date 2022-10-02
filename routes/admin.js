@@ -81,10 +81,25 @@ router.post("/checkadmin", function (req, res) {
   }
 });
 
-router.get("/signout", function (req, res) {
+router.get("/forgotpassword", function (req, res) {
   try {
+    res.render("forgotPassword");
+  } catch (error) {
     localstorage.removeItem("token");
     res.redirect("/");
+  }
+});
+
+router.get("/signout", function (req, res) {
+  try {
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.render("adminSignIn", { msg: "Don't need to do that" });
+    } else {
+      localstorage.removeItem("token");
+      res.redirect("/");
+    }
   } catch (error) {
     localstorage.removeItem("token");
     res.redirect("/");

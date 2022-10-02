@@ -34,7 +34,35 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Order Items</a>
             </li>
+            <% if(user !== null ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="#">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signout">Sign Out</a>
+            </li>
+            <% } %>
           </ul>
+          <% if(user === null ) { %>
+          <button
+            class="btn btn-outline-success"
+            type="submit"
+            style="margin-right: 6px"
+          >
+            <a href="/signin" style="text-decoration: none; color: inherit"
+              >Sign In</a
+            >
+          </button>
+          <button
+            class="btn btn-outline-success"
+            type="submit"
+            style="margin-left: 6px"
+          >
+            <a href="/signup" style="text-decoration: none; color: inherit"
+              >Create an Account</a
+            >
+          </button>
+          <% } else { %>
           <form class="form-inline my-2 my-lg-0" style="margin-right: 12px">
             <input
               class="form-control mr-sm-2"
@@ -45,7 +73,7 @@
               onkeyup="searchInList()"
             />
           </form>
-          <button
+          <!--button
             class="btn btn-outline-success"
             type="submit"
             style="margin-left: 4px"
@@ -53,14 +81,19 @@
             <a href="/signout" style="text-decoration: none; color: inherit"
               >Sign Out</a
             >
-          </button>
+          </button-->
+          <% } %>
         </div>
       </div>
     </nav>
 
     <div class="container my-3">
       <div class="row">
+        <% if(user === null ){ %>
+        <h3 style="text-decoration: underline">Hello, User</h3>
+        <% } else { %>
         <h3 style="text-decoration: underline">Hello, <%= user.username %></h3>
+        <% } %>
       </div>
     </div>
 
