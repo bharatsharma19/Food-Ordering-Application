@@ -156,13 +156,21 @@
             </button>
           </td>
           <td class="text-center">
-            <input
-              class="ves-effect waves-light btn-small btnEdit"
-              type="button"
-              value="Edit"
-              id="btnEdit"
-              fooditems="<%=JSON.stringify(item)%>"
-            />
+            <button class="btn btn-outline-warning">
+              <input
+                class="ves-effect waves-light btn-small btnEdit"
+                type="button"
+                value="Edit"
+                id="btnEdit"
+                fooditems="<%=JSON.stringify(item)%>"
+                style="
+                  background-color: inherit;
+                  border: none;
+                  color: inherit;
+                  border-radius: inherit;
+                "
+              />
+            </button>
           </td>
         </tr>
       </tbody>
