@@ -105,6 +105,87 @@ router.get("/signout", function (req, res) {
   }
 });
 
+router.get("/myprofile", function (req, res) {
+  try {
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.redirect("/");
+    } else {
+      if (admin === null) {
+        res.render("adminProfile", { admin: null });
+      } else {
+        res.render("adminProfile", { admin: admin });
+      }
+    }
+  } catch (error) {
+    localstorage.removeItem("token");
+    res.redirect("/error");
+  }
+});
+
+router.get("/editAdminProfile", function (req, res) {
+  try {
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.redirect("/");
+    } else {
+      db.query(
+        "update adminlogin set adminname = ?, adminemail = ?, admincontact = ?, adminpassword = ? where adminid = ?",
+        [
+          req.query.adminname,
+          req.query.adminemail,
+          req.query.admincontact,
+          req.query.adminpassword,
+          req.query.adminid,
+        ],
+        function (error, result) {
+          if (error) {
+            res.status(500).json({
+              message: "Server Error...",
+            });
+          } else {
+            res.redirect("/");
+            localstorage.removeItem("token");
+          }
+        }
+      );
+    }
+  } catch (error) {
+    localstorage.removeItem("token");
+    res.redirect("/");
+  }
+});
+
+router.get("/deleteAdminProfile", function (req, res) {
+  try {
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.redirect("/");
+    } else {
+      db.query(
+        "delete from adminlogin where adminid = ?",
+        [req.query.adminid],
+        function (error, result) {
+          if (error) {
+            res.status(500).json({
+              message: "Server Error...",
+            });
+          } else {
+            res.redirect("/");
+            localstorage.removeItem("token");
+          }
+        }
+      );
+    }
+  } catch (error) {
+    localstorage.removeItem("token");
+    res.redirect("/");
+  }
+});
+
 /* GET home page. */
 router.get("/dashboard", function (req, res) {
   try {
@@ -256,7 +337,6 @@ router.post("/addItem", upload.any("picture"), function (req, res) {
       }
     );
   } catch (error) {
-    console.log("Error : ", error);
     localstorage.removeItem("token");
     res.redirect("/admin/signin");
   }
