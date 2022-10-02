@@ -315,6 +315,7 @@
                   id="updBtn"
                   class="btn btn-primary"
                   onclick="load()"
+                  onsubmit="load()"
                 >
                   Edit Profile
                 </button>
@@ -360,6 +361,7 @@
                 class="btn btn-primary"
                 id="deleteBtn"
                 onclick="load()"
+                onsubmit="load()"
               >
                 Delete
               </button>
@@ -385,6 +387,11 @@
       crossorigin="anonymous"
     ></script>
     <script>
+      function load() {
+        localStorage.clear();
+        location.href = "http://localhost:3000";
+      }
+
       $(document).ready(function () {
         $(".modal").modal();
 
@@ -447,11 +454,6 @@
           $("#deleteModal").modal("hide");
         });
       });
-    </script>
-    <script>
-      function load() {
-        location.href = "http://localhost:3000";
-      }
     </script>
   </body>
 </html>
