@@ -20,6 +20,7 @@ router.get("/signup", function (req, res) {
       res.render("userSignup", { msg: "" });
     }
   } catch (error) {
+    localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
 });
@@ -45,6 +46,7 @@ router.post("/signedup", function (req, res) {
       }
     );
   } catch (error) {
+    localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
 });
@@ -59,6 +61,7 @@ router.get("/signin", function (req, res) {
       res.render("userSignin", { msg: "" });
     }
   } catch (error) {
+    localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
 });
@@ -82,6 +85,7 @@ router.post("/checkuser", function (req, res) {
       }
     );
   } catch (error) {
+    localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
 });
@@ -91,6 +95,7 @@ router.get("/signout", function (req, res) {
     localstorage.removeItem("usertoken");
     res.redirect("/");
   } catch (error) {
+    localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
 });
@@ -115,6 +120,7 @@ router.get("/", function (req, res) {
       }
     );
   } catch (error) {
+    localstorage.removeItem("usertoken");
     res.redirect("/error");
   }
 });
