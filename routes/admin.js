@@ -341,7 +341,7 @@ router.post("/addItem", upload.any("picture"), function (req, res) {
           if (error) {
             res.render("addItem", { msg: "Server Error" });
           } else {
-            res.render("addItem", { msg: "" });
+            res.redirect("/admin/add");
           }
         }
       }
@@ -498,9 +498,9 @@ router.post("/addSubCategory", function (req, res) {
           res.render("adminSignIn", { msg: "Don't need to do that" });
         } else {
           if (error) {
-            res.render("addSubCategory");
+            res.redirect("/admin/addSubCat");
           } else {
-            res.render("addSubCategory");
+            res.redirect("/admin/addSubCat");
           }
         }
       }
