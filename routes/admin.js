@@ -52,7 +52,13 @@ router.post("/signedup", function (req, res) {
 
 router.get("/signin", function (req, res) {
   try {
-    res.render("adminSignin", { msg: "" });
+    var admin = JSON.parse(localstorage.getItem("token"));
+
+    if (admin === null) {
+      res.render("adminSignin", { msg: "" });
+    } else {
+      res.redirect("/admin/dashboard");
+    }
   } catch (error) {
     localstorage.removeItem("token");
     res.redirect("/admin/error");
@@ -105,7 +111,7 @@ router.get("/signout", function (req, res) {
       res.redirect("/admin/signin");
     }
   } catch (error) {
-    res.redirect("/admin/signin");
+    res.redirect("/admin/error");
   }
 });
 
@@ -194,7 +200,7 @@ router.get("/deleteAdminProfile", function (req, res) {
 router.get("/dashboard", function (req, res) {
   try {
     var query =
-      "select count(*) as countCategory from foodcategory; select count(*) as countSubCategory from foodsubcategory; select count(*) as countTotalItems from fooditems";
+      "select count(*) as countCategory from foodcategory; select count(*) as countSubCategory from foodsubcategory; select count(*) as countTotalItems from fooditems; select count(*) as countTotalUsers from userlogin";
 
     db.query(query, function (error, result) {
       var admin = JSON.parse(localstorage.getItem("token"));

@@ -206,14 +206,16 @@
           ></div>
           <div>
             <div class="card-body">
-              <h5 class="card-title">Total Items Sold</h5>
+              <h5 class="card-title">Total Registered Users</h5>
               <h3
                 style="margin-top: 18px; margin-bottom: 24px"
                 class="card-text"
               >
-                Sold
+                <%= result[3][0].countTotalUsers %>
               </h3>
-              <a href="#" class="btn btn-primary">View Statistics</a>
+              <a href="/admin/registeredUsers" class="btn btn-primary"
+                >View Details</a
+              >
             </div>
           </div>
         </div>
