@@ -395,11 +395,21 @@ router.get("/addCat", function (req, res) {
   try {
     var admin = JSON.parse(localstorage.getItem("token"));
 
-    if (admin === null) {
-      res.render("adminSignIn", { msg: "Don't need to do that" });
-    } else {
-      res.render("addCategory");
-    }
+    var query = "select * from foodcategory";
+
+    db.query(query, function (error, result) {
+      if (admin === null) {
+        res.render("adminSignIn", { msg: "Don't need to do that" });
+      } else {
+        if (error) {
+          console.log("Error : ", error);
+          res.render("addCategory", { data: null });
+        } else {
+          console.log("Result : ", result);
+          res.render("addCategory", { data: result });
+        }
+      }
+    });
   } catch (error) {
     localstorage.removeItem("token");
     res.redirect("/admin/error");
@@ -433,9 +443,9 @@ router.post("/addCategory", function (req, res) {
           res.render("adminSignIn", { msg: "Don't need to do that" });
         } else {
           if (error) {
-            res.render("addCategory");
+            res.redirect("/admin/addCat");
           } else {
-            res.render("addCategory");
+            res.redirect("/admin/addCat");
           }
         }
       }

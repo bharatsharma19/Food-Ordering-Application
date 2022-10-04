@@ -11,7 +11,13 @@
       crossorigin="anonymous"
     />
   </head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js
+    "></script>
+  <script src="/javascripts/foodie.js"></script>
   <body>
+    <% if(data === null) { %>
+    <h2 class="text-center">Don't do this !</h2>
+    <% } else { %>
     <nav class="navbar navbar-expand-lg bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">Foodie</a>
@@ -105,8 +111,22 @@
           margin-top: 32px;
         "
       >
-        <h2 class="text-center m-3">Add Category</h2>
+        <h2 class="text-center m-3">Available Category</h2>
         <form action="/admin/addCategory" method="post" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="foodcategoryid"
+                name="foodcategoryid"
+                multiple
+              >
+                <option selected>--Available Categories--</option>
+              </select>
+            </div>
+          </div>
+          <h2 class="text-center" style="margin-top: 32px">Add Category</h2>
           <div class="row">
             <div class="input-field col s12">
               <div class="mb-3">
@@ -117,18 +137,25 @@
                   type="name"
                   name="foodcategoryname"
                   class="form-control"
+                  placeholder="Enter Category Name"
                   required
                 />
               </div>
             </div>
           </div>
-          <div class="text-center m-2">
-            <button type="submit" class="btn btn-primary">Add Category</button>
+          <div class="text-center m-2 my-2">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="margin-top: 4px; margin-bottom: 12px"
+            >
+              Add Category
+            </button>
           </div>
         </form>
       </div>
     </div>
-
+    <% } %>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
