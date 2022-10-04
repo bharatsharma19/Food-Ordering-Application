@@ -402,10 +402,8 @@ router.get("/addCat", function (req, res) {
         res.render("adminSignIn", { msg: "Don't need to do that" });
       } else {
         if (error) {
-          console.log("Error : ", error);
           res.render("addCategory", { data: null });
         } else {
-          console.log("Result : ", result);
           res.render("addCategory", { data: result });
         }
       }
@@ -676,7 +674,6 @@ router.get("/registeredUsers", function (req, res) {
     } else {
       db.query("select * from userlogin", function (error, result) {
         if (error) {
-          console.log("Error : ", error);
           res.render("registeredUsers", {
             status: false,
             error: error,
