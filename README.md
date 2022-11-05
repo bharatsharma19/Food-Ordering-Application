@@ -1,2 +1,2 @@
-# Food-Ordering-Application
+# Food-Ordering-Web App
 ## Bharat Sharma
