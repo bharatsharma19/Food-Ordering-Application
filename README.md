@@ -1,2 +1,2 @@
 # Food-Ordering-Web App
-## Bharat Sharma
+## Developed by Bharat Sharma
