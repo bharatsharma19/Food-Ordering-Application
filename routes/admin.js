@@ -170,6 +170,7 @@ router.get("/editAdminProfile", function (req, res) {
   }
 });
 
+/*
 router.get("/deleteAdminProfile", function (req, res) {
   try {
     var admin = JSON.parse(localstorage.getItem("token"));
@@ -197,6 +198,7 @@ router.get("/deleteAdminProfile", function (req, res) {
     res.redirect("/admin/error");
   }
 });
+*/
 
 /* GET home page. */
 router.get("/dashboard", function (req, res) {
