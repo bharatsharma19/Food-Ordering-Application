@@ -11,6 +11,7 @@ router.get("/error", function (req, res) {
   res.render("bigError");
 });
 
+/*
 router.get("/signup", function (req, res) {
   try {
     res.render("adminSignup", { message: "", messageError: "" });
@@ -49,6 +50,7 @@ router.post("/signedup", function (req, res) {
     res.redirect("/admin/error");
   }
 });
+*/
 
 router.get("/signin", function (req, res) {
   try {
